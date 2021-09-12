@@ -1,42 +1,88 @@
-@import url("https://fonts.googleapis.com/css2?family=Urbanist:wght@200;400;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;400;700;900&family=Nunito:wght@200&display=swap");
 
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: "Urbanist", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Nunito", sans-serif;
+  font-family: "Nunito Sans", sans-serif;
 }
 
 body {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  background-color: #242430;
+  max-width: 768px;
+}
+
+.balance-container {
+  height: 10rem;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.balance-indicator-text {
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+}
+
+.balance {
+  color: #ff7a64;
+  font-size: 56px;
+  font-weight: 700;
 }
 
 .list {
-	width: 768px;
-	align-items: center;
-	justify-content: center;
-	display: flex;
-	flex-direction: column;
-	gap: 0.5rem;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .transaction {
-	width: 100%;
-	background-color: grey;
-	display: flex;
-	justify-content: space-between;
-	padding: 1rem;
-	border-top: black;
+  width: 95%;
+  border-top: white;
+  border-style: solid;
+  border-width: 1px;
+  border-left: hidden;
+  border-right: hidden;
+  border-bottom: hidden;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
 }
 
 .left {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-h2 {
-	font-size: 18px;
+.description {
+  overflow: hidden;
+  max-width: 20ch;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.datetime {
+  font-weight: 200;
+  font-size: 14px;
+}
+
+.time-spent {
+  font-weight: 700;
+  font-size: 16px;
 }

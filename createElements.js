@@ -1,36 +1,26 @@
 export function createTransactionElement(
-	timeCostObject,
-	descriptionString,
-	settledAt
+  timeCostObject,
+  descriptionString,
+  settledAt
 ) {
-	const transaction = document.createElement("div")
-	transaction.className = "transaction"
+  const transactionTemplate = document.querySelector(".transaction-template")
+  const transactionContent = transactionTemplate.content.cloneNode(true)
 
-	const left = document.createElement("div")
-	left.className = "left"
+  const description = transactionContent.querySelector(".description")
+  const datetime = transactionContent.querySelector(".datetime")
+  const timeSpent = transactionContent.querySelector(".time-spent")
 
-	const description = document.createElement("h4")
-	description.className = "description"
-	description.innerText = descriptionString
+  description.innerText = descriptionString
+  datetime.innerText = settledAt
+  timeSpent.innerText = `${
+    timeCostObject.hoursPortion < 10
+      ? "0" + timeCostObject.hoursPortion
+      : timeCostObject.hoursPortion
+  }h:${
+    timeCostObject.minutesPortion < 10
+      ? "0" + timeCostObject.minutesPortion
+      : timeCostObject.minutesPortion
+  }m`
 
-	const datetime = document.createElement("h4")
-	datetime.className = "datetime"
-	datetime.innerText = settledAt
-
-	left.appendChild(description)
-	left.appendChild(datetime)
-
-	const right = document.createElement("div")
-	right.className = "right"
-
-	const timeSpent = document.createElement("h2")
-	timeSpent.className = "time-spent"
-	timeSpent.innerText = `${timeCostObject.hoursPortion}h:${timeCostObject.minutesPortion}m:${timeCostObject.secondsPortion}s`
-
-	right.appendChild(timeSpent)
-
-	transaction.appendChild(left)
-	transaction.appendChild(right)
-
-	return transaction
+  return transactionContent
 }
