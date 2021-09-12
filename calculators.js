@@ -32,10 +32,11 @@ export function timeCost(amount, rateObject) {
 	//The total of all three portions should add up to the total time cost
 	//This is used for populating the balances, costs etc
 	const hoursPortion = Math.floor(amountBase / rateObject.hourlyRate)
-	const minutesPortion =
+	const minutesPortion = Math.floor(
 		((amountBase % rateObject.hourlyRate) -
 			(amountBase % rateObject.minuteRate)) /
-		60
+			60
+	)
 	const secondsPortion = Math.floor(amountBase % rateObject.minuteRate)
 
 	//construct and return an amount object
