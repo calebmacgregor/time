@@ -1,28 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script type="module" src="scripts.js"></script>
-    <link rel="stylesheet" href="style.css" />
-    <title>Document</title>
-  </head>
-  <body>
-    <div class="balance-container">
-      <p class="balance-indicator-text">Balance</p>
-      <h1 class="balance"></h1>
-    </div>
-    <div class="list" id="list"></div>
-    <!-- Templates -->
-    <template class="transaction-template">
-      <div class="transaction">
-        <div class="left">
-          <h4 class="description"></h4>
-          <h4 class="datetime"></h4>
-        </div>
-        <div class="right"><h2 class="time-spent"></h2></div>
-      </div>
-    </template>
-  </body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1 user-scalable=0"
+		/>
+		<script type="module" src="scripts.js"></script>
+		<link rel="stylesheet" href="style.css" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div class="balance-container">
+			<p class="balance-indicator-text"></p>
+			<h1 class="balance"></h1>
+		</div>
+		<div class="calculator-container">
+			<input type="tel" class="calculator-input" placeholder="$$$" />
+			<button class="calculator-button">Button</button>
+		</div>
+		<div class="list" id="list"></div>
+		<!-- Templates -->
+		<template class="transaction-template">
+			<div class="transaction">
+				<div class="left">
+					<h4 class="description"></h4>
+					<h4 class="datetime"></h4>
+				</div>
+				<div class="right">
+					<h2 class="time-spent transaction-value"></h2>
+					<h2 class="money-spent transaction-value hidden"></h2>
+				</div>
+			</div>
+		</template>
+	</body>
 </html>
