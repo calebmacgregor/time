@@ -4,7 +4,7 @@ import {
   getTransactionAccounts,
   getSaverAccounts,
   getAccounts,
-} from "./accounts.js"
+} from "./apiCallFunctions.js"
 import { createTransactionElement } from "./createElements.js"
 
 const token =
@@ -27,54 +27,51 @@ populateTransactions(transactionsURL, token)
 
 async function getBalance(accountsURL, token, rateObject) {
   const transactionAccount = await getTransactionAccounts(accountsURL, token)
-  const transactionBalance = await transactionAccount[0].attributes.balance
-    .value
+  const transactionBalance = await transactionAccount.reduce((total, item) => {
+    return total + parseFloat(item.attributes.balance.value)
+  }, 0)
 
   const accounts = await getAccounts(accountsURL, token)
   const accountsBalance = await accounts.reduce((total, item) => {
     return total + parseFloat(item.attributes.balance.value)
   }, 0)
 
+  const savingsAccounts = await getAccounts(accountsURL, token)
+  const savingsBalance = await savingsAccounts.reduce((total, item) => {
+    return total + parseFloat(item.attributes.balance.value)
+  }, 0)
+
   const balanceTimeValue = timeValue(accountsBalance, rateObject)
   const transactionBalanceTimeValue = timeValue(transactionBalance, rateObject)
-  // return balanceTimeValue
   return {
     balanceTimeValue: balanceTimeValue,
     transactionBalanceTimeValue: transactionBalanceTimeValue,
   }
 }
 
-//TODO This feels like a clunky way to run an if statement
-//Come up with something better to toggle between balances
 async function populateBalance(balanceTimeValue) {
   const balanceElement = document.querySelector(".balance")
   const balanceObject = await balanceTimeValue
+  let chosenObject
 
   if (balanceElement.classList.contains("total")) {
-    const chosenObject = balanceObject.balanceTimeValue
-    const balanceString = `${
-      chosenObject.hoursPortion < 10
-        ? "0" + chosenObject.hoursPortion
-        : chosenObject.hoursPortion
-    }h:${
-      chosenObject.minutesPortion < 10
-        ? "0" + chosenObject.minutesPortion
-        : chosenObject.minutesPortion
-    }m`
-    balanceElement.innerHTML = balanceString
+    chosenObject = balanceObject.balanceTimeValue
   } else {
-    const chosenObject = balanceObject.transactionBalanceTimeValue
-    const balanceString = `${
-      chosenObject.hoursPortion < 10
-        ? "0" + chosenObject.hoursPortion
-        : chosenObject.hoursPortion
-    }h:${
-      chosenObject.minutesPortion < 10
-        ? "0" + chosenObject.minutesPortion
-        : chosenObject.minutesPortion
-    }m`
-    balanceElement.innerHTML = balanceString
+    chosenObject = balanceObject.transactionBalanceTimeValue
   }
+
+  const balanceString = `${
+    chosenObject.hoursPortion < 10
+      ? "0" + chosenObject.hoursPortion
+      : chosenObject.hoursPortion
+  }h:${
+    chosenObject.minutesPortion < 10
+      ? "0" + chosenObject.minutesPortion
+      : chosenObject.minutesPortion
+  }m`
+
+  //Apply balanceString to the balance
+  balanceElement.innerHTML = balanceString
 }
 
 //Construct and populate each transaction from the API call
@@ -93,7 +90,9 @@ async function populateTransactions(url, token) {
     )
 
     //Convert the settledTime value to a date
-    const settledTime = new Date(item.attributes.settledAt)
+    const settledTime = item.attributes.settledAt
+      ? new Date(item.attributes.settledAt)
+      : new Date(item.attributes.createdAt)
 
     //Create the transaction element
     let elt = createTransactionElement(
@@ -108,12 +107,9 @@ async function populateTransactions(url, token) {
     //Append the transaction element to List
     list.appendChild(elt)
   })
-
-  return data
 }
 
 //Infinite scrolling logic
-
 function infiniteScroll() {
   let scrollLocation = window.innerHeight + window.pageYOffset
   let scrollHeight = document.body.scrollHeight

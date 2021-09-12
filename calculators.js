@@ -39,8 +39,8 @@ export function timeValue(amount, rateObject) {
   )
   const secondsPortion = Math.floor(amountBase % rateObject.minuteRate)
 
-  //construct and return an amount object
-  const amountObject = {
+  //construct and return a timeValueObject
+  const timeValueObject = {
     amount: amount,
     amountBase: amountBase,
     totalHours: totalHours,
@@ -50,5 +50,5 @@ export function timeValue(amount, rateObject) {
     minutesPortion: minutesPortion,
     secondsPortion: secondsPortion,
   }
-  return amountObject
+  return timeValueObject
 }

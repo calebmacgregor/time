@@ -70,7 +70,7 @@ body {
 
 .description {
   overflow: hidden;
-  max-width: 20ch;
+  max-width: 55vw;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-weight: 700;
