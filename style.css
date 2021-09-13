@@ -19,11 +19,14 @@ body {
 }
 
 .balance-container {
+	position: sticky;
+	top: 0;
 	height: 15rem;
 	display: flex;
 	align-items: flex-start;
 	flex-direction: column;
 	justify-content: center;
+	z-index: 1;
 }
 
 .balance-indicator-text {
@@ -81,11 +84,12 @@ body {
 	flex-direction: column;
 	background-color: #252836;
 	border-radius: 20px 20px 0px 0px;
+	z-index: 2;
 }
 
 .transaction {
 	width: 95%;
-	border-top: white;
+	border-top: hsl(233, 22%, 43%);
 	border-style: solid;
 	border-width: 1px;
 	border-left: hidden;
@@ -132,4 +136,67 @@ body {
 .time-spent.hidden,
 .money-spent.hidden {
 	display: none;
+}
+
+.simulate {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	vertical-align: middle;
+	position: fixed;
+	bottom: 1rem;
+	right: 1rem;
+	border-radius: 50%;
+	background-color: #406cff;
+	border-style: none;
+	width: 64px;
+	height: 64px;
+	transition: transform 500ms cubic-bezier(0, 1.28, 0.82, 1);
+	font-weight: 700;
+	color: black;
+}
+
+.simulate.open {
+	transform: rotate(765deg);
+}
+
+/* Onboarding page styling */
+
+.onboarding-container {
+	display: flex;
+	flex-direction: column;
+
+	height: 80vh;
+	width: 90vw;
+	max-width: 768px;
+	border-radius: 20px;
+	padding: 2rem;
+
+	color: white;
+}
+
+.api-key-container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	gap: 0.5rem;
+}
+
+#api-key-label {
+	font-size: 18px;
+	font-weight: 700;
+}
+
+#api-key-input {
+	width: 100%;
+	background-color: #262836;
+	color: white;
+	border-style: none;
+	border-radius: 10px;
+	height: 2rem;
+	padding: 1rem;
 }

@@ -106,6 +106,8 @@ async function populateTransactions(url, token) {
 				timeStyle: "short"
 			})}`
 		)
+		//Set the id to be the same as the transaction id from the API
+		elt.id = item.id
 
 		//Append the transaction element to List
 		list.appendChild(elt)
@@ -150,11 +152,23 @@ document.addEventListener("scroll", (e) => {
 		: (balanceContainer.style.opacity = 0)
 })
 
+//Switches transactions between dollar and time views (time is default)
 document.addEventListener("click", (e) => {
-	if (!e.target.classList.contains("transaction-value")) return
-	const timeSpent = document.querySelector(".time-spent")
-	const moneySpent = document.querySelector(".money-spent")
+	if (!e.target.classList.contains("transaction-related")) return
+	const transaction = e.target.closest(".transaction")
+
+	const timeSpent = transaction.querySelector(".time-spent")
+	const moneySpent = transaction.querySelector(".money-spent")
 
 	timeSpent.classList.toggle("hidden")
 	moneySpent.classList.toggle("hidden")
 })
+
+//Spins the button
+const simulate = document.querySelector(".simulate")
+
+simulate.addEventListener("click", (e) => {
+	simulate.classList.toggle("open")
+})
+
+console.log("linked")

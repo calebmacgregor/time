@@ -4,7 +4,11 @@ export function createTransactionElement(
 	settledAt
 ) {
 	const transactionTemplate = document.querySelector(".transaction-template")
-	const transactionContent = transactionTemplate.content.cloneNode(true)
+
+	//firstElementChild converts the template to an actual HTML element
+	//and lets assign IDs etc
+	const transactionContent =
+		transactionTemplate.content.firstElementChild.cloneNode(true)
 
 	const description = transactionContent.querySelector(".description")
 	const datetime = transactionContent.querySelector(".datetime")
