@@ -120,10 +120,8 @@ async function renderTransactions(pingUpData) {
     //Get the timeValue of each transaction
     let timeValueObject = item.timeValueObject
 
-    //Convert the settledTime value to a date
-    const settledTime = item.attributes.settledAt
-      ? new Date(item.attributes.settledAt)
-      : new Date(item.attributes.createdAt)
+    //Convert the createdTime value to a date
+    const createdTime = new Date(item.attributes.createdAt)
 
     //Grab the template from the HTML
     const transactionTemplate = document.querySelector(".transaction-template")
@@ -149,10 +147,10 @@ async function renderTransactions(pingUpData) {
     }m`
 
     description.innerText = item.attributes.description
-    datetime.innerText = `${settledTime.toLocaleString("en-AU", {
+    datetime.innerText = `${createdTime.toLocaleString("en-AU", {
       month: "short",
       day: "numeric",
-    })}, ${settledTime.toLocaleTimeString("en-AU", {
+    })}, ${createdTime.toLocaleTimeString("en-AU", {
       timeStyle: "short",
     })}`
     timeSpent.innerText = timeValueString
@@ -234,14 +232,16 @@ simulate.addEventListener("click", (e) => {
   )
   transcations.forEach((item) => {
     item.classList.toggle("hidden")
+    let itemHeight = item.offsetHeight
+    console.log(itemHeight)
 
-    setTimeout(() => {
-      if (item.classList.contains("hidden")) {
-        item.style.display = "none"
-      } else {
-        item.style.display = "flex"
-      }
-    }, 250)
+    // setTimeout(() => {
+    //   if (item.classList.contains("hidden")) {
+    //     item.style.display = "none"
+    //   } else {
+    //     item.style.display = "flex"
+    //   }
+    // }, 250)
   })
 })
 
@@ -249,7 +249,7 @@ let lengthCheck = Array.from(document.querySelectorAll(".transaction")).length
 //Length check event listener
 document.addEventListener("click", () => {
   lengthCheck = Array.from(document.querySelectorAll(".transaction")).length
-
+  console.log(lengthCheck)
   if (lengthCheck < 20) {
     renderTransactions(getTransactions(nextPage, token))
   }

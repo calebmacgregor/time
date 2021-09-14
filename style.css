@@ -78,6 +78,7 @@ body {
 
 .list {
   width: 100%;
+  height: auto;
   align-items: center;
   justify-content: center;
   display: flex;
@@ -100,11 +101,13 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 1.5rem;
-  transition: ease 250ms;
+  transition: 250ms ease;
 }
 
 .transaction.hidden {
-  transform: scaleY(0);
+  transition: 250ms ease;
+  opacity: 0;
+  transform: scale(0);
 }
 
 .transaction:first-child {
