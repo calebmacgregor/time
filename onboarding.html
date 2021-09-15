@@ -13,17 +13,37 @@
 	</head>
 	<body>
 		<div class="onboarding-container">
-			<div class="onboarding-list">
-				<div class="api-key-container">
-					<label for="api-key" id="api-key-label">Enter your API Key</label>
-					<input
-						type="text"
-						id="api-key-input"
-						name="api-key"
-						placeholder="API Key"
-					/>
-				</div>
+			<div class="get-started">
+				<h1>Get Started</h1>
 			</div>
+			<form action="" class="onboarding-form">
+				<div class="api-key-container input-container">
+					<label for="api-key-input">Api Key</label>
+					<input type="text" class="api-key-input" name="api-key-input" />
+					<p class="api-key-help">
+						Don't have one?
+						<a
+							href="http://api.up.com.au/getting_started"
+							target="_blank"
+							rel="noopener noreferrer"
+							>Click here</a
+						>
+						for more info
+					</p>
+				</div>
+				<div class="numbers-input">
+					<div class="dollars-container input-container">
+						<label for="dollars-input">After tax pay</label>
+						<input type="tel" class="dollars-input" name="dollars-input" />
+					</div>
+					<div class="time-container input-container">
+						<label for="time-input">Hours worked per pay</label>
+						<input type="tel" class="time-input" name="time-input" />
+					</div>
+				</div>
+
+				<input type="submit" value="Submit" />
+			</form>
 		</div>
 	</body>
 </html>
