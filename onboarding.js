@@ -59,7 +59,7 @@ submit.addEventListener("click", (e) => {
 			localStorage.setItem("TIME-preferences", JSON.stringify(preferences))
 
 			//Redirect to the main page
-			window.location.replace("/")
+			window.location.replace("./")
 		} else {
 			if (!validPay) {
 				dollarsError.style.display = "block"

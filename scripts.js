@@ -13,7 +13,7 @@ const transactionsURL =
 	"https://api.up.com.au/api/v1/transactions?page[size]=50"
 
 if (!localStorage.getItem("TIME-preferences")) {
-	window.location.replace("/onboarding.html")
+	window.location.replace("./onboarding.html")
 }
 
 let preferences = JSON.parse(localStorage.getItem("TIME-preferences"))
