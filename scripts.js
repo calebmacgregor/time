@@ -17,7 +17,7 @@ if (!localStorage.getItem("TIME-preferences")) {
 }
 
 let preferences = JSON.parse(localStorage.getItem("TIME-preferences"))
-console.log(preferences)
+
 const rateObject = preferences.rateObject
 
 let nextPage
@@ -178,4 +178,59 @@ reset.addEventListener("click", (e) => {
 	localStorage.removeItem("TIME-preferences")
 	preferences = ""
 	location.reload()
+})
+
+const estimateInput = document.querySelector(".estimate-input")
+const estimateResult = document.querySelector(".estimate-result")
+
+estimateInput.addEventListener("input", () => {
+	if (estimateInput.value == "") {
+		estimateResult.innerText = ""
+	}
+	if (!isNaN(estimateInput.value)) {
+		const timeValueObject = timeValue(
+			estimateInput.value,
+			preferences.rateObject
+		)
+		const timeValueString = `${
+			timeValueObject.hoursPortion < 10
+				? "0" + timeValueObject.hoursPortion
+				: timeValueObject.hoursPortion
+		}h:${
+			timeValueObject.minutesPortion < 10
+				? "0" + timeValueObject.minutesPortion
+				: timeValueObject.minutesPortion
+		}m`
+
+		estimateResult.innerText = timeValueString
+	}
+})
+
+//Show modal when button is clicked
+const estimateButton = document.querySelector(".estimate-button")
+
+estimateButton.addEventListener("click", () => {
+	const estimateContainer = document.querySelector(".estimate-container")
+	estimateButton.classList.toggle("cancel")
+	estimateContainer.classList.toggle("hidden")
+})
+
+//Hide the button on scroll
+let oldScroll
+let newScroll
+let scrollDirection = "up"
+document.addEventListener("scroll", () => {
+	newScroll = document.documentElement.scrollTop
+	if (newScroll > oldScroll) {
+		scrollDirection = "down"
+	} else {
+		scrollDirection = "up"
+	}
+
+	if (scrollDirection == "up") {
+		estimateButton.classList.remove("hidden")
+	} else if (scrollDirection == "down" && newScroll > 20) {
+		estimateButton.classList.add("hidden")
+	}
+	oldScroll = newScroll
 })
