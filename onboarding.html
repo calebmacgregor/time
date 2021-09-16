@@ -7,7 +7,7 @@
 			name="viewport"
 			content="width=device-width, initial-scale=1.0, maximum-scale=1 user-scalable=0"
 		/>
-		<script src="onboarding.js" defer></script>
+		<script src="onboarding.js" type="module"></script>
 		<link rel="stylesheet" href="style.css" />
 		<title>Document</title>
 	</head>
@@ -17,32 +17,38 @@
 				<h1>Get Started</h1>
 			</div>
 			<form action="" class="onboarding-form">
-				<div class="api-key-container input-container">
-					<label for="api-key-input">Api Key</label>
-					<input type="text" class="api-key-input" name="api-key-input" />
-					<p class="api-key-help">
-						Don't have one?
-						<a
-							href="http://api.up.com.au/getting_started"
-							target="_blank"
-							rel="noopener noreferrer"
-							>Click here</a
-						>
-						for more info
-					</p>
-				</div>
-				<div class="numbers-input">
+				<div class="inputs-container">
 					<div class="dollars-container input-container">
 						<label for="dollars-input">After tax pay</label>
 						<input type="tel" class="dollars-input" name="dollars-input" />
+						<p class="dollars-error hidden error">
+							Enter a number (no extra characters)
+						</p>
 					</div>
 					<div class="time-container input-container">
 						<label for="time-input">Hours worked per pay</label>
 						<input type="tel" class="time-input" name="time-input" />
+						<p class="time-error hidden error">
+							Enter a number (no extra characters)
+						</p>
+					</div>
+					<div class="api-key-container input-container">
+						<label for="api-key-input">Api Key</label>
+						<input type="text" class="api-key-input" name="api-key-input" />
+						<p class="api-key-help">
+							Don't have one?
+							<a
+								href="http://api.up.com.au/getting_started"
+								target="_blank"
+								rel="noopener noreferrer"
+								>Click here</a
+							>
+							for more info
+						</p>
+						<p class="api-error hidden error">Enter a valid API key</p>
 					</div>
 				</div>
-
-				<input type="submit" value="Submit" />
+				<input type="submit" value="Submit" class="submit" />
 			</form>
 		</div>
 	</body>

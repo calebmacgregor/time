@@ -12,23 +12,13 @@ const accountsURL = "https://api.up.com.au/api/v1/accounts"
 const transactionsURL =
 	"https://api.up.com.au/api/v1/transactions?page[size]=50"
 
-const rateObject = getTime(2880, 80)
-
-//Set a global preferences object
-//TODO: set this to be retrieved from localstorage
-// const preferences = {
-// 	hideTransfers: true,
-// 	apiKey:
-// 		"up:yeah:NULvDQe7lrgiG9eMgnbP62XrsuUUw2LDkQjN4J3hvFM5w0uTUQnBXtAT8pyjXu6hHk8cduezjrccrgKdRPutlTOX35qdlGJwXZsZCHGYQnAURAbhYSd15buR6v6eAWQr"
-// }
-
-// localStorage.setItem("preferences", JSON.stringify(preferences))
-
-if (!localStorage.getItem("preferences")) {
-	window.location.replace("http://localhost:5500/onboarding.html")
+if (!localStorage.getItem("TIME-preferences")) {
+	window.location.replace("/onboarding.html")
 }
 
-let preferences = JSON.parse(localStorage.getItem("preferences"))
+let preferences = JSON.parse(localStorage.getItem("TIME-preferences"))
+console.log(preferences)
+const rateObject = preferences.rateObject
 
 let nextPage
 let transactionArray = []
@@ -182,15 +172,10 @@ document.addEventListener("click", (e) => {
 
 //GARBAGE CODE
 //Spins the button
-const simulate = document.querySelector(".simulate")
+const reset = document.querySelector(".reset")
 
-simulate.addEventListener("click", (e) => {
-	simulate.classList.toggle("open")
-	const transcations = Array.from(
-		document.querySelectorAll(".transaction.transfer")
-	)
-	transcations.forEach((item) => {
-		item.classList.toggle("hidden")
-		let itemHeight = item.offsetHeight
-	})
+reset.addEventListener("click", (e) => {
+	localStorage.removeItem("TIME-preferences")
+	preferences = ""
+	location.reload()
 })
