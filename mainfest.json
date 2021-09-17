@@ -1,7 +1,6 @@
 {
   "name": "Time",
   "short_name": "Time",
-  "start_url": "/?home=true",
   "theme_color": "#201d2b",
   "background_color": "#201d2b",
   "display": "standalone",
