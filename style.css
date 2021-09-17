@@ -8,7 +8,7 @@
 	font-family: "Nunito Sans", sans-serif;
 }
 
-body {
+body {  margin-top: 2rem;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
