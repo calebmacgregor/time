@@ -19,15 +19,15 @@ let nextPage
 let preferences = JSON.parse(localStorage.getItem("TIME-preferences"))
 
 //Redirect if the key in storage is bad
-if (localStorage.getItem("TIME-preferences") == null) {
-	console.log("redirecting")
+if (!preferences) {
 	window.location.replace("./onboarding.html")
+} else if (preferences) {
+	let result = await keyValidation(pingURL, preferences.apiKey)
+	if (result.ok == false) {
+		window.location.replace("./onboarding.html")
+	}
 }
-let result = await keyValidation(pingURL, preferences.apiKey)
-if (result.ok == false) {
-	console.log("redirecting")
-	window.location.replace("./onboarding.html")
-}
+
 const rateObject = preferences.rateObject
 
 //Initial pageload transactions

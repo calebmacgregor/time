@@ -10,6 +10,17 @@ const timeError = document.querySelector(".time-error")
 const dollarsError = document.querySelector(".dollars-error")
 const apiError = document.querySelector(".api-error")
 
+//Redirect if the key in storage is valid
+const pingURL = "https://api.up.com.au/api/v1/util/ping"
+let preferences = JSON.parse(localStorage.getItem("TIME-preferences"))
+if (preferences) {
+	let result = await keyValidation(pingURL, preferences.apiKey)
+	if (result.ok == true) {
+		console.log("redirecting")
+		window.location.replace("./")
+	}
+}
+
 submit.addEventListener("click", (e) => {
 	e.preventDefault()
 
