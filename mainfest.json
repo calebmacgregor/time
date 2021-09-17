@@ -3,7 +3,7 @@
   "short_name": "Time",
   "theme_color": "#201d2b",
   "background_color": "#201d2b",
-  "display": "standalone",
+  "display": "browser",
   "orientation": "portrait",
   "icons": [
     {
