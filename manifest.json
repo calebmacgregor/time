@@ -4,7 +4,7 @@
   "theme_color": "#201d2b",
   "background_color": "#201d2b",
   "display": "browser",
-  "orientation": "standalone",
+  "orientation": "fullscreen",
   "icons": [
     {
       "src": "icons/manifest-icon-192.png",
