@@ -8,12 +8,13 @@
 	font-family: "Nunito Sans", sans-serif;
 }
 
-body {  margin-top: 2rem;
+body { 
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	margin: auto;
+        margin-top: 2rem;
 	background-color: #201d2b;
 	max-width: 768px;
 	overflow-x: hidden;
