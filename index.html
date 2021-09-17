@@ -18,9 +18,9 @@
 		</div>
 
 		<ul class="list" id="list"></ul>
-
+		<!-- Estimate container -->
 		<div class="estimate-container hidden">
-			<h2 class="estimate-result">Calculate the time cost</h2>
+			<h2 class="estimate-result">Convert money to time</h2>
 			<input
 				type="float"
 				inputmode="decimal"
@@ -29,22 +29,22 @@
 				name="estimate-input"
 			/>
 		</div>
-		<button class="reset">Reset</button>
-		<button class="estimate-button">
+
+		<button class="logout">Logout</button>
+		<div class="close-button maximise">
 			<svg
-				class="plus"
-				width="30"
-				height="30"
-				viewBox="0 0 18 19"
+				width="24"
+				height="14"
+				viewBox="0 0 24 14"
 				fill="none"
 				xmlns="http://www.w3.org/2000/svg"
 			>
 				<path
-					d="M16 8.12C16.456 8.12 16.828 8.276 17.116 8.588C17.428 8.876 17.584 9.248 17.584 9.704C17.584 10.16 17.428 10.544 17.116 10.856C16.828 11.144 16.456 11.288 16 11.288H10.384V16.868C10.384 17.324 10.228 17.708 9.916 18.02C9.628 18.332 9.256 18.488 8.8 18.488C8.344 18.488 7.96 18.332 7.648 18.02C7.36 17.708 7.216 17.324 7.216 16.868V11.288H1.6C1.144 11.288 0.76 11.144 0.448 10.856C0.16 10.544 0.0160001 10.16 0.0160001 9.704C0.0160001 9.248 0.16 8.876 0.448 8.588C0.76 8.276 1.144 8.12 1.6 8.12H7.216V2.504C7.216 2.048 7.36 1.676 7.648 1.388C7.96 1.076 8.344 0.919999 8.8 0.919999C9.256 0.919999 9.628 1.076 9.916 1.388C10.228 1.676 10.384 2.048 10.384 2.504V8.12H16Z"
-					fill="#061648"
+					d="M10.9393 13.0607C11.5251 13.6464 12.4749 13.6464 13.0607 13.0607L22.6066 3.51472C23.1924 2.92893 23.1924 1.97918 22.6066 1.3934C22.0208 0.807612 21.0711 0.807612 20.4853 1.3934L12 9.87868L3.51472 1.3934C2.92893 0.807612 1.97918 0.807612 1.3934 1.3934C0.807612 1.97918 0.807612 2.92893 1.3934 3.51472L10.9393 13.0607ZM10.5 11V12H13.5V11H10.5Z"
+					fill="black"
 				/>
 			</svg>
-		</button>
+		</div>
 		<!-- Templates -->
 		<template class="transaction-template">
 			<li class="transaction transaction-related">
