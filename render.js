@@ -1,6 +1,6 @@
 //Construct and populate each transaction from the API call
-export async function renderTransactions(pingUpData, preferences) {
-	let data = await pingUpData
+export async function renderTransactions(getTransactionsData, preferences) {
+	let data = await getTransactionsData
 
 	data.forEach((item) => {
 		//Get the timeValue of each transaction
@@ -20,6 +20,7 @@ export async function renderTransactions(pingUpData, preferences) {
 		const datetime = elt.querySelector(".datetime")
 		const timeSpent = elt.querySelector(".time-spent")
 		const moneySpent = elt.querySelector(".money-spent")
+		const positiveIndicator = elt.querySelector(".positive-indicator")
 
 		//Add leading zeros if applicable
 		const timeValueString = `${
@@ -44,6 +45,11 @@ export async function renderTransactions(pingUpData, preferences) {
 
 		//Set the id to be the same as the transaction id from the API
 		elt.id = item.id
+
+		//Add a Positive class if the transaction is positive
+		item.isPositive
+			? positiveIndicator.classList.add("positive")
+			: positiveIndicator.classList.add("hidden")
 
 		//Set the transaction type as a class
 		elt.classList.add(item.transactionType.toLowerCase())

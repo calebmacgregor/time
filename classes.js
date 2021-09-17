@@ -10,5 +10,6 @@ export class timeTransaction {
 		this.transactionType = upTransaction.relationships.transferAccount.data
 			? "Transfer"
 			: "Expense"
+		this.isPositive = upTransaction.attributes.amount.value > 0 ? true : false
 	}
 }

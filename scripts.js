@@ -18,8 +18,9 @@ let preferences = JSON.parse(localStorage.getItem("TIME-preferences"))
 
 const rateObject = preferences.rateObject
 
-let result = await keyValidation(pingURL, preferences.token)
+let result = await keyValidation(pingURL, preferences.apiKey)
 if (result.ok == false) {
+	console.log("redirecting")
 	window.location.replace("./onboarding.html")
 }
 

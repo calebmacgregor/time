@@ -146,6 +146,17 @@ body {
 	font-size: 16px;
 }
 
+.transaction-value-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0.2rem;
+}
+
+.positive-indicator.hidden {
+	display: none;
+}
+
 .time-spent.hidden,
 .money-spent.hidden {
 	display: none;
