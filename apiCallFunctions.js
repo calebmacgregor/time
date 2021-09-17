@@ -42,3 +42,12 @@ export async function getAccounts(url, token) {
 	})
 	return accountID
 }
+
+export async function keyValidation(url, token) {
+	let response = await fetch(url, {
+		headers: {
+			Authorization: `Bearer ${token}`
+		}
+	})
+	return response
+}

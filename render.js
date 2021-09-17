@@ -59,3 +59,31 @@ export async function renderTransactions(pingUpData, preferences) {
 		}
 	})
 }
+
+export async function renderBalance(balanceTimeValue) {
+	const balanceElement = document.querySelector(".balance")
+	const balanceIndicatorText = document.querySelector(".balance-indicator-text")
+	const balanceObject = await balanceTimeValue
+	let chosenObject
+
+	if (balanceElement.classList.contains("total")) {
+		balanceIndicatorText.innerText = "Total balance"
+		chosenObject = balanceObject.balanceTimeValue
+	} else {
+		balanceIndicatorText.innerText = "Spending balance"
+		chosenObject = balanceObject.transactionBalanceTimeValue
+	}
+
+	const balanceString = `${
+		chosenObject.hoursPortion < 10
+			? "0" + chosenObject.hoursPortion
+			: chosenObject.hoursPortion
+	}h:${
+		chosenObject.minutesPortion < 10
+			? "0" + chosenObject.minutesPortion
+			: chosenObject.minutesPortion
+	}m`
+
+	//Apply balanceString to the balance
+	balanceElement.innerHTML = balanceString
+}

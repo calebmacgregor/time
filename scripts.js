@@ -1,34 +1,47 @@
 import { getTime, timeValue } from "./calculators.js"
-import { renderTransactions } from "./render.js"
+import { renderTransactions, renderBalance } from "./render.js"
 import {
 	pingUp,
 	getTransactionAccounts,
 	getSaverAccounts,
-	getAccounts
+	getAccounts,
+	keyValidation
 } from "./apiCallFunctions.js"
+import { timeTransaction } from "./classes.js"
 
 const pingURL = "https://api.up.com.au/api/v1/util/ping"
 const accountsURL = "https://api.up.com.au/api/v1/accounts"
 const transactionsURL =
 	"https://api.up.com.au/api/v1/transactions?page[size]=50"
 
-if (!localStorage.getItem("TIME-preferences")) {
-	window.location.replace("./onboarding.html")
-}
-
 let preferences = JSON.parse(localStorage.getItem("TIME-preferences"))
 
 const rateObject = preferences.rateObject
 
+let result = await keyValidation(pingURL, preferences.token)
+if (result.ok == false) {
+	window.location.replace("./onboarding.html")
+}
+
 let nextPage
-let transactionArray = []
 
 //Initial pageload transactions
-populateBalance(getBalance(accountsURL, preferences.apiKey, rateObject))
+renderBalance(getBalance(accountsURL, preferences.apiKey, rateObject))
 renderTransactions(
-	getTransactions(transactionsURL, preferences.apiKey),
+	getTransactions(transactionsURL, preferences.apiKey, timeValue),
 	preferences
 )
+
+//Get transactions from Up and run them through
+//the timevalue function
+export async function getTransactions(url, token) {
+	let data = await pingUp(url, token)
+	nextPage = await data.links.next
+	let output = await data.data.map((item) => {
+		return new timeTransaction(item, rateObject, timeValue)
+	})
+	return output
+}
 
 async function getBalance(accountsURL, token, rateObject) {
 	const transactionAccount = await getTransactionAccounts(accountsURL, token)
@@ -54,69 +67,6 @@ async function getBalance(accountsURL, token, rateObject) {
 	}
 }
 
-async function populateBalance(balanceTimeValue) {
-	const balanceElement = document.querySelector(".balance")
-	const balanceIndicatorText = document.querySelector(".balance-indicator-text")
-	const balanceObject = await balanceTimeValue
-	let chosenObject
-
-	if (balanceElement.classList.contains("total")) {
-		balanceIndicatorText.innerText = "Total balance"
-		chosenObject = balanceObject.balanceTimeValue
-	} else {
-		balanceIndicatorText.innerText = "Spending balance"
-		chosenObject = balanceObject.transactionBalanceTimeValue
-	}
-
-	const balanceString = `${
-		chosenObject.hoursPortion < 10
-			? "0" + chosenObject.hoursPortion
-			: chosenObject.hoursPortion
-	}h:${
-		chosenObject.minutesPortion < 10
-			? "0" + chosenObject.minutesPortion
-			: chosenObject.minutesPortion
-	}m`
-
-	//Apply balanceString to the balance
-	balanceElement.innerHTML = balanceString
-}
-
-//Get transactions from Up and run them through
-//the timevalue function
-async function getTransactions(url, token) {
-	console.log("getting transactions")
-	let data = await pingUp(url, token)
-	nextPage = await data.links.next
-	transactionArray = transactionArray.concat(data.data)
-	let output = await data.data.map((item) => {
-		//Create an empty object
-		let obj = {}
-		//Populate that object with the data I need for renderTransactions
-		obj.timeValueObject = timeValue(
-			Math.abs(item.attributes.amount.value),
-			rateObject
-		)
-
-		let transactionType
-
-		if (item.relationships.transferAccount.data) {
-			transactionType = "Transfer"
-		} else {
-			transactionType = "Expense"
-		}
-
-		obj.id = item.id
-		obj.attributes = item.attributes
-		obj.transactionType = transactionType
-		obj.other = item
-
-		return obj
-	})
-
-	return output
-}
-
 //Infinite scrolling logic
 function infiniteScroll() {
 	let scrollLocation = window.innerHeight + window.pageYOffset
@@ -127,7 +77,7 @@ function infiniteScroll() {
 			console.log("no next page")
 		} else {
 			renderTransactions(
-				getTransactions(nextPage, preferences.apiKey),
+				getTransactions(nextPage, preferences.apiKey, timeValue),
 				preferences
 			)
 		}
@@ -142,7 +92,7 @@ document.addEventListener("scroll", () => {
 document.addEventListener("click", (e) => {
 	if (!e.target.classList.contains("balance")) return
 	e.target.classList.toggle("total")
-	populateBalance(getBalance(accountsURL, preferences.apiKey, rateObject))
+	renderBalance(getBalance(accountsURL, preferences.apiKey, rateObject))
 })
 
 //Fade and scale down the balance on scroll

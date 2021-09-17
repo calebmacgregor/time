@@ -1,4 +1,5 @@
 import { getTime } from "./calculators.js"
+import { keyValidation } from "./apiCallFunctions.js"
 
 const submit = document.querySelector(".submit")
 const keyInput = document.querySelector(".api-key-input")
@@ -8,15 +9,6 @@ const timeInput = document.querySelector(".time-input")
 const timeError = document.querySelector(".time-error")
 const dollarsError = document.querySelector(".dollars-error")
 const apiError = document.querySelector(".api-error")
-
-async function keyValidation(url, token) {
-	let response = await fetch(url, {
-		headers: {
-			Authorization: `Bearer ${token}`
-		}
-	})
-	return response
-}
 
 submit.addEventListener("click", (e) => {
 	e.preventDefault()

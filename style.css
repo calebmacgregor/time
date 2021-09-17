@@ -16,6 +16,7 @@ body {
 	margin: auto;
 	background-color: #201d2b;
 	max-width: 768px;
+	overflow-x: hidden;
 }
 
 .balance-container {
@@ -291,7 +292,7 @@ input[type="submit"] {
 }
 
 input.estimate-input {
-	width: 70%;
+	width: 100%;
 	font-size: 1rem;
 }
 
