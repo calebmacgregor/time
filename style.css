@@ -35,7 +35,7 @@ body {
 	position: fixed;
 	top: 1rem;
 	left: 1rem;
-	z-index: 102;
+	z-index: 2;
 }
 
 .nav-panel.hidden {

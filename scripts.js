@@ -151,18 +151,21 @@ estimateInput.addEventListener("input", () => {
 	}
 })
 
-//Show modal when button is clicked
+//open estimate panel functionality
 const estimatePanel = document.querySelector(".estimate-panel")
 const closeButton = document.querySelector(".close-button")
 
 closeButton.addEventListener("click", () => {
+	//If you click the button when the panel is closed
 	if (estimatePanel.classList.contains("hidden")) {
 		closeButton.classList.remove("maximise")
 		estimatePanel.style.display = "flex"
 		setTimeout(() => {
 			estimatePanel.classList.remove("hidden")
 		}, 5)
-	} else {
+	}
+	//If you click the button when the panel is open
+	else {
 		closeButton.classList.add("maximise")
 		estimatePanel.classList.toggle("hidden")
 		setTimeout(() => {
@@ -171,6 +174,40 @@ closeButton.addEventListener("click", () => {
 	}
 })
 
+//Open nav panel functionality
+const navIcon = document.querySelector(".nav-icon")
+const navPanel = document.querySelector(".nav-panel")
+
+navIcon.addEventListener("click", () => {
+	console.log("clicked")
+	navPanel.classList.toggle("hidden")
+	if (!navPanel.classList.contains("hidden")) {
+		navIcon.style.zIndex = 1000
+	} else {
+		navIcon.style.zIndex = 2
+	}
+})
+
+//Disable scroll when modals are open
+
+document.addEventListener(
+	"touchmove",
+	(e) => {
+		if (estimatePanel.classList.contains("hidden")) return
+		e.preventDefault()
+	},
+	{ passive: false }
+)
+
+document.addEventListener(
+	"touchmove",
+	(e) => {
+		if (navPanel.classList.contains("hidden")) return
+		e.preventDefault()
+	},
+	{ passive: false }
+)
+
 //Logout functionality
 const logout = document.querySelector(".logout")
 
@@ -178,13 +215,4 @@ logout.addEventListener("click", (e) => {
 	localStorage.removeItem("TIME-preferences")
 	preferences = ""
 	location.reload()
-})
-
-//Open panel functionality
-const navIcon = document.querySelector(".nav-icon")
-
-navIcon.addEventListener("click", () => {
-	const navPanel = document.querySelector(".nav-panel")
-	console.log("clicked")
-	navPanel.classList.toggle("hidden")
 })
