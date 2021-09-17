@@ -12,6 +12,52 @@
 		<title>Document</title>
 	</head>
 	<body>
+		<!-- Generic greyout/cover for panels/modals -->
+
+		<!-- Nav stuff -->
+		<div class="nav-container">
+			<div class="nav-icon">
+				<svg
+					width="40"
+					height="26"
+					viewBox="0 0 40 26"
+					fill="none"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<line
+						x1="3"
+						y1="23"
+						x2="30"
+						y2="23"
+						stroke="#EF496F"
+						stroke-width="4"
+						stroke-linecap="round"
+					/>
+					<line
+						x1="3"
+						y1="13"
+						x2="30"
+						y2="13"
+						stroke="#EF496F"
+						stroke-width="4"
+						stroke-linecap="round"
+					/>
+					<line
+						x1="3"
+						y1="3"
+						x2="30"
+						y2="3"
+						stroke="#EF496F"
+						stroke-width="4"
+						stroke-linecap="round"
+					/>
+				</svg>
+			</div>
+			<div class="nav-panel hidden">
+				<button class="logout">Logout</button>
+			</div>
+		</div>
+		<!-- Top balance container -->
 		<div class="balance-container">
 			<p class="balance-indicator-text"></p>
 			<h1 class="balance"></h1>
@@ -19,7 +65,7 @@
 
 		<ul class="list" id="list"></ul>
 		<!-- Estimate container -->
-		<div class="estimate-container hidden">
+		<div class="estimate-panel hidden">
 			<h2 class="estimate-result">Convert money to time</h2>
 			<input
 				type="float"
@@ -30,7 +76,6 @@
 			/>
 		</div>
 
-		<button class="logout">Logout</button>
 		<div class="close-button maximise">
 			<svg
 				width="24"

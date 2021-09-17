@@ -14,20 +14,25 @@ const accountsURL = "https://api.up.com.au/api/v1/accounts"
 const transactionsURL =
 	"https://api.up.com.au/api/v1/transactions?page[size]=50"
 
+//Set some global variables
+let nextPage
 let preferences = JSON.parse(localStorage.getItem("TIME-preferences"))
 
-const rateObject = preferences.rateObject
-
+//Redirect if the key in storage is bad
+if (localStorage.getItem("TIME-preferences") == null) {
+	console.log("redirecting")
+	window.location.replace("./onboarding.html")
+}
 let result = await keyValidation(pingURL, preferences.apiKey)
 if (result.ok == false) {
 	console.log("redirecting")
 	window.location.replace("./onboarding.html")
 }
-
-let nextPage
+const rateObject = preferences.rateObject
 
 //Initial pageload transactions
 renderBalance(getBalance(accountsURL, preferences.apiKey, rateObject))
+
 renderTransactions(
 	getTransactions(transactionsURL, preferences.apiKey, timeValue),
 	preferences
@@ -147,21 +152,21 @@ estimateInput.addEventListener("input", () => {
 })
 
 //Show modal when button is clicked
-const estimateContainer = document.querySelector(".estimate-container")
+const estimatePanel = document.querySelector(".estimate-panel")
 const closeButton = document.querySelector(".close-button")
 
 closeButton.addEventListener("click", () => {
-	if (estimateContainer.classList.contains("hidden")) {
+	if (estimatePanel.classList.contains("hidden")) {
 		closeButton.classList.remove("maximise")
-		estimateContainer.style.display = "flex"
+		estimatePanel.style.display = "flex"
 		setTimeout(() => {
-			estimateContainer.classList.remove("hidden")
+			estimatePanel.classList.remove("hidden")
 		}, 5)
 	} else {
 		closeButton.classList.add("maximise")
-		estimateContainer.classList.toggle("hidden")
+		estimatePanel.classList.toggle("hidden")
 		setTimeout(() => {
-			estimateContainer.style.display = "none"
+			estimatePanel.style.display = "none"
 		}, 251)
 	}
 })
@@ -173,4 +178,13 @@ logout.addEventListener("click", (e) => {
 	localStorage.removeItem("TIME-preferences")
 	preferences = ""
 	location.reload()
+})
+
+//Open panel functionality
+const navIcon = document.querySelector(".nav-icon")
+
+navIcon.addEventListener("click", () => {
+	const navPanel = document.querySelector(".nav-panel")
+	console.log("clicked")
+	navPanel.classList.toggle("hidden")
 })
