@@ -212,10 +212,15 @@ document.addEventListener(
 )
 
 //Logout functionality
-const logout = document.querySelector(".logout")
-
-logout.addEventListener("click", (e) => {
+document.addEventListener("click", (e) => {
+  if (!e.target.classList.contains("logout")) return
   localStorage.removeItem("TIME-preferences")
   preferences = ""
+  location.reload()
+})
+
+//Refresh functionality
+document.addEventListener("click", (e) => {
+  if (!e.target.classList.contains("refresh")) return
   location.reload()
 })
