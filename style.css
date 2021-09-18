@@ -243,10 +243,6 @@ input[type="float"] {
   background-color: #262836;
   color: white;
   padding: 1rem;
-  font-size: 2rem;
-}
-
-input.api-key-input {
   font-size: 1rem;
 }
 
