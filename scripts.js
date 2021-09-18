@@ -80,10 +80,11 @@ function infiniteScroll() {
   let scrollLocation = window.innerHeight + window.pageYOffset
   let scrollHeight = document.body.scrollHeight
 
-  if (scrollLocation === scrollHeight) {
+  if (scrollLocation / scrollHeight > 0.8) {
     if (!nextPage) {
       console.log("no next page")
     } else {
+      console.log("Grabbing new transactions")
       renderTransactions(
         getTransactions(nextPage, preferences.apiKey, timeValue),
         preferences
@@ -92,7 +93,14 @@ function infiniteScroll() {
   }
 }
 
-document.addEventListener("scroll", () => {
+//Set event handlers on touchstart and touchend
+//This helps reduce the number of calls compared
+//to using scroll
+document.addEventListener("touchend", () => {
+  infiniteScroll()
+})
+
+document.addEventListener("touchstart", () => {
   infiniteScroll()
 })
 
