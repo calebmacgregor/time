@@ -337,3 +337,15 @@ input.estimate-input {
 .close-button.maximise {
 	transform: rotate(180deg);
 }
+
+/* Preferences styling */
+
+.preferences-container {
+	padding: 2rem;
+	height: 100vh;
+}
+
+.preferences-header {
+	color: white;
+	padding-bottom: 2rem;
+}

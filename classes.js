@@ -1,3 +1,13 @@
+export class Preferences {
+	constructor(apiKey, hideTransfers, afterTaxPay, hoursWorked, rateObject) {
+		this.apiKey = apiKey
+		this.hideTransfers = hideTransfers
+		this.afterTaxPay = afterTaxPay
+		this.hoursWorked = hoursWorked
+		this.rateObject = rateObject
+	}
+}
+
 export class timeTransaction {
 	constructor(upTransaction, ratebject, timeValueFunction) {
 		this.id = upTransaction.id

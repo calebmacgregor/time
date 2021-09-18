@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, user-scalable = no, viewport-fit=cover"
+		/>
+		<meta name="theme-color" content="#000000" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta
+			name="apple-mobile-web-app-status-bar-style"
+			content="black-translucent"
+		/>
+		<script type="module" src="preferences.js"></script>
+		<link rel="stylesheet" href="style.css" />
+		<link rel="manifest" href="manifest.json" />
+		<link rel="apple-touch-icon" href="icons/apple-icon-180.png" />
+		<title>Time</title>
+	</head>
+	<body>
+		<div class="preferences-container">
+			<h1 class="preferences-header">Preferences</h1>
+			<form action="" class="onboarding-form">
+				<div class="inputs-container">
+					<div class="dollars-container input-container">
+						<label for="dollars-input">After tax pay</label>
+						<input
+							type="float"
+							inputmode="decimal"
+							class="dollars-input"
+							name="dollars-input"
+							id="dollars-preferences"
+						/>
+						<p class="dollars-error hidden error">
+							Enter a number (no extra characters)
+						</p>
+					</div>
+					<div class="time-container input-container">
+						<label for="time-input">Hours worked per pay</label>
+						<input
+							type="float"
+							inputmode="decimal"
+							class="time-input"
+							name="time-input"
+							id="time-preferences"
+						/>
+						<p class="time-error hidden error">
+							Enter a number (no extra characters)
+						</p>
+					</div>
+					<div class="api-key-container input-container">
+						<label for="api-key-input">Api Key</label>
+						<input
+							type="text"
+							class="api-key-input"
+							name="api-key-input"
+							id="api-key-preferences"
+						/>
+						<p class="api-error hidden error">Enter a valid API key</p>
+					</div>
+				</div>
+				<input type="submit" value="Save Changes" class="submit" />
+			</form>
+		</div>
+		<script>
+			if ("serviceWorker" in navigator) {
+				navigator.serviceWorker.register("/serviceWorker.js")
+			}
+		</script>
+	</body>
+</html>

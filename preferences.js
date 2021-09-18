@@ -1,26 +1,31 @@
-import { getTime } from "./calculators.js"
+import { getTime, timeValue } from "./calculators.js"
 import { keyValidation } from "./apiCallFunctions.js"
 import { Preferences } from "./classes.js"
 
 const submit = document.querySelector(".submit")
-const keyInput = document.querySelector(".api-key-input")
 const payInput = document.querySelector(".dollars-input")
 const timeInput = document.querySelector(".time-input")
-
+const keyInput = document.querySelector(".api-key-input")
 const timeError = document.querySelector(".time-error")
 const dollarsError = document.querySelector(".dollars-error")
 const apiError = document.querySelector(".api-error")
 
-//Redirect if the key in storage is valid
+//Redirect if the key in storage is bad
 const pingURL = "https://api.up.com.au/api/v1/util/ping"
 let preferences = JSON.parse(localStorage.getItem("TIME-preferences"))
-if (preferences) {
+if (!preferences) {
+	window.location.replace("./onboarding.html")
+} else if (preferences) {
 	let result = await keyValidation(pingURL, preferences.apiKey)
-	if (result.ok == true) {
-		console.log("redirecting")
-		window.location.replace("./")
+	if (result.ok == false) {
+		window.location.replace("./onboarding.html")
 	}
 }
+
+//Set the input values using data from the preferences object
+payInput.value = preferences.afterTaxPay
+timeInput.value = preferences.hoursWorked
+keyInput.value = preferences.apiKey
 
 submit.addEventListener("click", (e) => {
 	e.preventDefault()
@@ -29,13 +34,9 @@ submit.addEventListener("click", (e) => {
 	dollarsError.style.display = "none"
 	timeError.style.display = "none"
 	apiError.style.display = "none"
-
-	//Grab the values from each input
 	const pay = parseInt(payInput.value)
 	const time = parseInt(timeInput.value)
 	const apiKey = keyInput.value
-
-	//Ping API to seeif key is valid
 	const response = keyValidation(
 		"https://api.up.com.au/api/v1/util/ping",
 		apiKey
@@ -44,8 +45,6 @@ submit.addEventListener("click", (e) => {
 	//Check whether numbers are valid
 	const validPay = isNaN(pay) ? false : true
 	const validTime = isNaN(time) ? false : true
-
-	//Initialise an empty variable to store results of keyValidation
 	let validKey
 
 	response.then((data) => {
@@ -57,8 +56,10 @@ submit.addEventListener("click", (e) => {
 			validKey = false
 		}
 		if (data.ok == true && validPay && validTime) {
+			console.log("Valid key")
+
 			//Construct the preferences object
-			let preferences = new Preferences(
+			let newPreferences = new Preferences(
 				apiKey,
 				true,
 				pay,
@@ -67,7 +68,7 @@ submit.addEventListener("click", (e) => {
 			)
 
 			//Put the preferences object into localstorage
-			localStorage.setItem("TIME-preferences", JSON.stringify(preferences))
+			localStorage.setItem("TIME-preferences", JSON.stringify(newPreferences))
 
 			//Redirect to the main page
 			window.location.replace("./")
@@ -78,7 +79,6 @@ submit.addEventListener("click", (e) => {
 			if (!validTime) {
 				timeError.style.display = "block"
 			}
-
 			if (!validKey) {
 				apiError.style.display = "block"
 			}
