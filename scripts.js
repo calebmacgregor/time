@@ -119,9 +119,7 @@ function infiniteScroll() {
 
 	if (scrollLocation / scrollHeight > 0.8) {
 		if (!nextPage) {
-			console.log("no next page")
 		} else {
-			console.log("Grabbing new transactions")
 			renderTransactions(
 				getTransactions(nextPage, preferences.apiKey, timeValue),
 				preferences
