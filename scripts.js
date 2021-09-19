@@ -138,7 +138,6 @@ async function getTransactions(url, token) {
 }
 
 async function getBalance(accountsURL, token, rateObject) {
-	loader.classList.remove("inactive")
 	const transactionAccount = await getTransactionAccounts(accountsURL, token)
 	const transactionBalance = await transactionAccount.reduce((total, item) => {
 		return total + parseFloat(item.attributes.balance.value)
