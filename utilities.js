@@ -93,8 +93,8 @@ export function styleNavLinks() {
 		link.classList.remove("active")
 	})
 
-	const currentLocation = window.location.pathname.slice(1)
-	console.log(currentLocation)
+	const currentLocation = window.location.pathname.split("/").at(-1)
+
 	//Grab the current page and style that
 	linksArray.forEach((link) => {
 		console.log(link)
