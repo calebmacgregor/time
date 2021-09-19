@@ -56,7 +56,7 @@ document.addEventListener("touchstart", infiniteScroll)
 //Fade and scale down the balance on scroll
 document.addEventListener("scroll", fadeBalance)
 
-//Open nav panel functionality
+// //Open nav panel functionality
 document.addEventListener("click", handleNavPanel)
 
 //Logout functionality

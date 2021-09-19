@@ -80,6 +80,7 @@ export function handleRefresh(e) {
 }
 
 export function styleNavLinks() {
+	console.log("Initiating")
 	//Grab all nav links
 	const homeLink = document.querySelector("#home-link")
 	const preferencesLink = document.querySelector("#preferences-link")
@@ -90,14 +91,18 @@ export function styleNavLinks() {
 
 	//Remove active statuses of all links
 	linksArray.forEach((link) => {
+		console.log("link")
 		link.classList.remove("active")
 	})
 
-	const currentLocation = window.location.pathname.split("/").at(-1)
+	//This is broken into pieces because if it isn't then Safari mobile cries
+	const currentLocationPathname = window.location.pathname
+	const currentLocationArray = currentLocationPathname.split("/")
+	const arrayLength = currentLocationArray.length
+	const currentLocation = currentLocationArray[arrayLength - 1]
 
 	//Grab the current page and style that
 	linksArray.forEach((link) => {
-		console.log(link)
 		if (link.getAttribute("href") == currentLocation) {
 			link.classList.add("active")
 		}
