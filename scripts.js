@@ -138,7 +138,6 @@ async function getTransactions(url, token) {
 }
 
 async function getBalance(accountsURL, token, rateObject) {
-	let loader = document.querySelector(".loading")
 	loader.classList.remove("inactive")
 	const transactionAccount = await getTransactionAccounts(accountsURL, token)
 	const transactionBalance = await transactionAccount.reduce((total, item) => {
@@ -152,7 +151,7 @@ async function getBalance(accountsURL, token, rateObject) {
 
 	const balanceTimeValue = timeValue(accountsBalance, rateObject)
 	const transactionBalanceTimeValue = timeValue(transactionBalance, rateObject)
-	loader.classList.add("inactive")
+
 	return {
 		transactionBalanceDollarValue: transactionBalance,
 		balanceTimeValue: balanceTimeValue,
