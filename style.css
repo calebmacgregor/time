@@ -30,8 +30,12 @@ html {
 
 /* Navigation styling */
 .nav-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	position: fixed;
 	left: 1rem;
+	width: 2rem;
 	top: calc(1rem + env(safe-area-inset-top));
 	z-index: 2;
 	transition: ease 300ms;
