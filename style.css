@@ -77,11 +77,15 @@ html {
 
 .nav-link {
 	text-decoration: none;
-	border-bottom: #ef496f solid 2px;
 	font-size: 20px;
 	font-weight: 700;
 	color: white;
 	cursor: pointer;
+}
+
+.nav-link.active,
+.nav-link:active {
+	border-bottom: #ef496f solid 2px;
 }
 
 /* Balance container styling */
@@ -349,11 +353,4 @@ input.calculator-input {
 .preferences-header {
 	color: white;
 	padding-bottom: 2rem;
-}
-
-.back-to-home-icon {
-	position: fixed;
-	left: 1rem;
-	top: calc(1rem + env(safe-area-inset-top));
-	transform: rotate(180deg);
 }

@@ -2,7 +2,12 @@ import { getTime, timeValue } from "./calculators.js"
 import { keyValidation } from "./apiCallFunctions.js"
 import { Preferences } from "./classes.js"
 import { pingURL } from "./endpoints.js"
-import { handleNavPanel, handleLogout, handleRefresh } from "./utilities.js"
+import {
+	handleNavPanel,
+	handleLogout,
+	handleRefresh,
+	styleNavLinks
+} from "./utilities.js"
 
 const submit = document.querySelector(".submit")
 const payInput = document.querySelector(".dollars-input")
@@ -27,6 +32,8 @@ if (!preferences) {
 payInput.value = preferences.afterTaxPay
 timeInput.value = preferences.hoursWorked
 keyInput.value = preferences.apiKey
+
+styleNavLinks()
 
 //Open nav panel functionality
 document.addEventListener("click", handleNavPanel)

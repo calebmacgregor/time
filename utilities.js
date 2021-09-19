@@ -78,3 +78,26 @@ export function handleRefresh(e) {
 	if (!e.target.classList.contains("refresh")) return
 	location.reload()
 }
+
+export function styleNavLinks() {
+	//Grab all nav links
+	const homeLink = document.querySelector("#home-link")
+	const preferencesLink = document.querySelector("#preferences-link")
+	const refreshLink = document.querySelector("#refresh-link")
+	const logoutLink = document.querySelector("#logout-link")
+
+	const linksArray = [homeLink, preferencesLink, refreshLink, logoutLink]
+
+	//Remove active statuses of all links
+	linksArray.forEach((link) => {
+		link.classList.remove("active")
+	})
+
+	const currentLocation = window.location.pathname.slice(1)
+	//Grab the current page and style that
+	linksArray.forEach((link) => {
+		if (link.getAttribute("href") == currentLocation) {
+			link.classList.add("active")
+		}
+	})
+}

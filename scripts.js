@@ -13,7 +13,8 @@ import {
 	toggleCurrency,
 	disableScroll,
 	handleLogout,
-	handleRefresh
+	handleRefresh,
+	styleNavLinks
 } from "./utilities.js"
 import { timeTransaction } from "./classes.js"
 import { pingURL, accountsURL, transactionsURL } from "./endpoints.js"
@@ -41,6 +42,8 @@ renderTransactions(
 	getTransactions(transactionsURL, preferences.apiKey, timeValue),
 	preferences
 )
+
+styleNavLinks()
 
 ///// Event listeners /////
 
