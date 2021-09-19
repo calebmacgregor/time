@@ -68,6 +68,7 @@ export async function renderTransactions(getTransactionsData, preferences) {
 
 export async function renderBalance(balanceTimeValue) {
 	const balanceElement = document.querySelector(".balance")
+	const dollarBalanceElement = document.querySelector(".dollar-balance")
 	const balanceIndicatorText = document.querySelector(".balance-indicator-text")
 	const balanceObject = await balanceTimeValue
 	let chosenObject
@@ -90,6 +91,9 @@ export async function renderBalance(balanceTimeValue) {
 			: chosenObject.minutesPortion
 	}m`
 
+	const dollaraBalanceString = `$${balanceObject.transactionBalanceDollarValue}`
+
 	//Apply balanceString to the balance
 	balanceElement.innerHTML = balanceString
+	dollarBalanceElement.innerText = dollaraBalanceString
 }

@@ -15,6 +15,8 @@ export function handleCalculatorPanel(e) {
 	const calculatorButton = e.target.closest(".calculator-button")
 	if (!calculatorButton) return
 	const calculatorPanel = document.querySelector(".calculator-panel")
+	const calculatorInput = document.querySelector(".calculator-input")
+	const calculatorResult = document.querySelector(".calculator-result")
 	//If you click the button when the panel is closed
 	if (calculatorPanel.classList.contains("hidden")) {
 		calculatorButton.classList.remove("maximise")
@@ -25,6 +27,8 @@ export function handleCalculatorPanel(e) {
 	}
 	//If you click the button when the panel is open
 	else {
+		calculatorInput.value = ""
+		calculatorResult.innerText = "Calculator"
 		calculatorButton.classList.add("maximise")
 		calculatorPanel.classList.toggle("hidden")
 		setTimeout(() => {
@@ -67,6 +71,18 @@ export function toggleCurrency(e) {
 	moneySpent.classList.toggle("hidden")
 }
 
+export function toggleBalanceCurrency(e) {
+	const balanceContainer = e.target.closest(".balance-container")
+
+	if (!balanceContainer) return
+
+	const timeBalance = balanceContainer.querySelector(".balance")
+	const dollarBalance = balanceContainer.querySelector(".dollar-balance")
+
+	timeBalance.classList.toggle("hidden")
+	dollarBalance.classList.toggle("hidden")
+}
+
 export function handleLogout(e) {
 	if (!e.target.classList.contains("logout")) return
 	localStorage.removeItem("TIME-preferences")
@@ -80,7 +96,6 @@ export function handleRefresh(e) {
 }
 
 export function styleNavLinks() {
-	console.log("Initiating")
 	//Grab all nav links
 	const homeLink = document.querySelector("#home-link")
 	const preferencesLink = document.querySelector("#preferences-link")
@@ -91,7 +106,6 @@ export function styleNavLinks() {
 
 	//Remove active statuses of all links
 	linksArray.forEach((link) => {
-		console.log("link")
 		link.classList.remove("active")
 	})
 
