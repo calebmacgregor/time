@@ -56,6 +56,12 @@ document.addEventListener("scroll", fadeBalance)
 //Open nav panel functionality
 document.addEventListener("click", handleNavPanel)
 
+//Logout functionality
+document.addEventListener("click", handleLogout)
+
+//Refresh functionality
+document.addEventListener("click", handleRefresh)
+
 //Open calculator panel
 document.addEventListener("click", handleCalculatorPanel)
 
@@ -64,12 +70,6 @@ document.addEventListener("input", handleCalculator)
 
 //Disable scroll when panels are open
 document.addEventListener("touchmove", disableScroll, { passive: false })
-
-//Logout functionality
-document.addEventListener("click", handleLogout)
-
-//Refresh functionality
-document.addEventListener("click", handleRefresh)
 
 //Toggle between transactional and total views for balance
 document.addEventListener("click", (e) => {
