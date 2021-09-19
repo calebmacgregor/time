@@ -48,10 +48,10 @@ html {
 .nav-panel {
   position: fixed;
   left: 0;
-  padding-top: 5rem;
-  top: env(safe-area-inset-top);
+  padding-top: calc(5rem + env(safe-area-inset-top));
+  top: 0;
   width: 260px;
-  height: calc(100vh - env(safe-area-inset-top));
+  height: 100vh;
   background-color: #40435a;
   z-index: 101;
   transition: ease 250ms;
