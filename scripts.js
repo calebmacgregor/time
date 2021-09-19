@@ -117,7 +117,7 @@ function infiniteScroll() {
   let scrollLocation = window.innerHeight + window.pageYOffset
   let scrollHeight = document.body.scrollHeight
 
-  if (scrollLocation / scrollHeight > 0.7) {
+  if (scrollLocation / scrollHeight > 0.9) {
     if (!nextPage) {
     } else {
       renderTransactions(
