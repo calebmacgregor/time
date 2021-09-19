@@ -10,12 +10,12 @@ import {
 	handleNavPanel,
 	handleCalculatorPanel,
 	fadeBalance,
-	toggleCurrency,
 	toggleBalanceCurrency,
 	disableScroll,
 	handleLogout,
 	handleRefresh,
-	styleNavLinks
+	styleNavLinks,
+	toggleTransactionCurrency
 } from "./utilities.js"
 import { timeTransaction } from "./classes.js"
 import { pingURL, accountsURL, transactionsURL } from "./endpoints.js"
@@ -52,7 +52,7 @@ styleNavLinks()
 document.addEventListener("click", toggleBalanceCurrency)
 
 //Switches transactions between dollar and time views (time is default)
-document.addEventListener("click", toggleCurrency)
+document.addEventListener("click", toggleTransactionCurrency)
 
 //Check whether we need to grab more transactions
 document.addEventListener("touchend", infiniteScroll)

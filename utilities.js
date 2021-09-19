@@ -60,7 +60,7 @@ export function fadeBalance() {
 		: (balanceContainer.style.opacity = 0)
 }
 
-export function toggleCurrency(e) {
+export function toggleTransactionCurrency(e) {
 	if (!e.target.classList.contains("transaction-related")) return
 	const transaction = e.target.closest(".transaction")
 
