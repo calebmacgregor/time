@@ -94,8 +94,10 @@ export function styleNavLinks() {
 	})
 
 	const currentLocation = window.location.pathname.slice(1)
+	console.log(currentLocation)
 	//Grab the current page and style that
 	linksArray.forEach((link) => {
+		console.log(link)
 		if (link.getAttribute("href") == currentLocation) {
 			link.classList.add("active")
 		}
