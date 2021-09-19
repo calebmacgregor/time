@@ -1,20 +1,28 @@
-import { getTime, timeValue } from "./calculators.js"
+import { timeValue } from "./calculators.js"
 import { renderTransactions, renderBalance } from "./render.js"
 import {
 	pingUp,
 	getTransactionAccounts,
-	getSaverAccounts,
 	getAccounts,
 	keyValidation
 } from "./apiCallFunctions.js"
+import {
+	handleNavPanel,
+	handleCalculatorPanel,
+	fadeBalance,
+	toggleCurrency,
+	disableScroll,
+	handleLogout,
+	handleRefresh
+} from "./utilities.js"
 import { timeTransaction } from "./classes.js"
 import { pingURL, accountsURL, transactionsURL } from "./endpoints.js"
 
-//Set some global variables
+///// Global variables /////
 let nextPage
 let preferences = JSON.parse(localStorage.getItem("TIME-preferences"))
 
-//Redirect if the key in storage is bad
+///// Redirect to onboarding if key is bad /////
 if (!preferences) {
 	window.location.replace("./onboarding.html")
 } else if (preferences) {
@@ -24,7 +32,7 @@ if (!preferences) {
 	}
 }
 
-//Initial pageload transactions
+///// Load initial page elements /////
 renderBalance(
 	getBalance(accountsURL, preferences.apiKey, preferences.rateObject)
 )
@@ -34,9 +42,94 @@ renderTransactions(
 	preferences
 )
 
+///// Event listeners /////
+
+//Switches transactions between dollar and time views (time is default)
+document.addEventListener("click", toggleCurrency)
+
+//Check whether we need to grab more transactions
+document.addEventListener("touchstart", infiniteScroll)
+
+//Fade and scale down the balance on scroll
+document.addEventListener("scroll", fadeBalance)
+
+//Open nav panel functionality
+document.addEventListener("click", handleNavPanel)
+
+//Open calculator panel
+document.addEventListener("click", handleCalculatorPanel)
+
+//Handle calculating a time value on demand
+document.addEventListener("input", handleCalculator)
+
+//Disable scroll when panels are open
+document.addEventListener("touchmove", disableScroll, { passive: false })
+
+//Logout functionality
+document.addEventListener("click", handleLogout)
+
+//Refresh functionality
+document.addEventListener("click", handleRefresh)
+
+//Toggle between transactional and total views for balance
+document.addEventListener("click", (e) => {
+	if (!e.target.classList.contains("balance")) return
+	e.target.classList.toggle("total")
+	renderBalance(
+		getBalance(accountsURL, preferences.apiKey, preferences.rateObject)
+	)
+})
+
+///// Functions that can't live in modules /////
+function handleCalculator(e) {
+	//Check whether the clicked item is related to calculator input
+	const calculatorInput = e.target.closest(".calculator-input")
+	//If it's not, bail
+	if (!calculatorInput) return
+	//If it is, grab the calculator-result as well
+	const calculatorResult = document.querySelector(".calculator-result")
+	//Make sure it's a real number
+	if (!isNaN(calculatorInput.value)) {
+		const timeValueObject = timeValue(
+			calculatorInput.value,
+			preferences.rateObject
+		)
+
+		const timeValueString = `${
+			timeValueObject.hoursPortion < 10
+				? "0" + timeValueObject.hoursPortion
+				: timeValueObject.hoursPortion
+		}h:${
+			timeValueObject.minutesPortion < 10
+				? "0" + timeValueObject.minutesPortion
+				: timeValueObject.minutesPortion
+		}m`
+
+		calculatorResult.innerText = timeValueString
+	}
+}
+
+//Infinite scrolling logic
+function infiniteScroll() {
+	let scrollLocation = window.innerHeight + window.pageYOffset
+	let scrollHeight = document.body.scrollHeight
+
+	if (scrollLocation / scrollHeight > 0.8) {
+		if (!nextPage) {
+			console.log("no next page")
+		} else {
+			console.log("Grabbing new transactions")
+			renderTransactions(
+				getTransactions(nextPage, preferences.apiKey, timeValue),
+				preferences
+			)
+		}
+	}
+}
+
 //Get transactions from Up and run them through
 //the timevalue function
-export async function getTransactions(url, token) {
+async function getTransactions(url, token) {
 	let data = await pingUp(url, token)
 	nextPage = await data.links.next
 	let output = await data.data.map((item) => {
@@ -63,156 +156,3 @@ async function getBalance(accountsURL, token, rateObject) {
 		transactionBalanceTimeValue: transactionBalanceTimeValue
 	}
 }
-
-//Infinite scrolling logic
-function infiniteScroll() {
-	let scrollLocation = window.innerHeight + window.pageYOffset
-	let scrollHeight = document.body.scrollHeight
-
-	if (scrollLocation / scrollHeight > 0.8) {
-		if (!nextPage) {
-			console.log("no next page")
-		} else {
-			console.log("Grabbing new transactions")
-			renderTransactions(
-				getTransactions(nextPage, preferences.apiKey, timeValue),
-				preferences
-			)
-		}
-	}
-}
-
-//Set event handlers on touchstart
-//This helps reduce the number of calls compared
-//to using scroll
-document.addEventListener("touchstart", infiniteScroll)
-
-//Toggle between transactional and total views for balance
-document.addEventListener("click", (e) => {
-	if (!e.target.classList.contains("balance")) return
-	e.target.classList.toggle("total")
-	renderBalance(
-		getBalance(accountsURL, preferences.apiKey, preferences.rateObject)
-	)
-})
-
-//Fade and scale down the balance on scroll
-document.addEventListener("scroll", (e) => {
-	const balanceContainer = document.querySelector(".balance-container")
-	const balanceContainerHeight = balanceContainer.offsetHeight
-	let scrollLocation = window.pageYOffset
-
-	let percentVisibile = 1 - (scrollLocation * 1.5) / balanceContainerHeight
-
-	percentVisibile > 0
-		? (balanceContainer.style.opacity = percentVisibile)
-		: (balanceContainer.style.opacity = 0)
-})
-
-//Switches transactions between dollar and time views (time is default)
-document.addEventListener("click", (e) => {
-	if (!e.target.classList.contains("transaction-related")) return
-	const transaction = e.target.closest(".transaction")
-
-	const timeSpent = transaction.querySelector(".time-spent")
-	const moneySpent = transaction.querySelector(".money-spent")
-
-	timeSpent.classList.toggle("hidden")
-	moneySpent.classList.toggle("hidden")
-})
-
-//Handle calculating a time value on demand
-const estimateInput = document.querySelector(".estimate-input")
-const estimateResult = document.querySelector(".estimate-result")
-
-estimateInput.addEventListener("input", () => {
-	if (!isNaN(estimateInput.value)) {
-		const timeValueObject = timeValue(
-			estimateInput.value,
-			preferences.rateObject
-		)
-
-		const timeValueString = `${
-			timeValueObject.hoursPortion < 10
-				? "0" + timeValueObject.hoursPortion
-				: timeValueObject.hoursPortion
-		}h:${
-			timeValueObject.minutesPortion < 10
-				? "0" + timeValueObject.minutesPortion
-				: timeValueObject.minutesPortion
-		}m`
-
-		estimateResult.innerText = timeValueString
-	}
-})
-
-//open estimate panel functionality
-const estimatePanel = document.querySelector(".estimate-panel")
-const closeButton = document.querySelector(".close-button")
-
-closeButton.addEventListener("click", () => {
-	//If you click the button when the panel is closed
-	if (estimatePanel.classList.contains("hidden")) {
-		closeButton.classList.remove("maximise")
-		estimatePanel.style.display = "flex"
-		setTimeout(() => {
-			estimatePanel.classList.remove("hidden")
-		}, 5)
-	}
-	//If you click the button when the panel is open
-	else {
-		closeButton.classList.add("maximise")
-		estimatePanel.classList.toggle("hidden")
-		setTimeout(() => {
-			estimatePanel.style.display = "none"
-		}, 251)
-	}
-})
-
-//Open nav panel functionality
-const navIcon = document.querySelector(".nav-icon")
-const navPanel = document.querySelector(".nav-panel")
-
-navIcon.addEventListener("click", (e) => {
-	console.log(e.target)
-	navPanel.classList.toggle("hidden")
-	navIcon.classList.toggle("expanded")
-	if (!navPanel.classList.contains("hidden")) {
-		navIcon.style.zIndex = 1000
-	} else {
-		navIcon.style.zIndex = 2
-	}
-})
-
-//Disable scroll when panels are open
-document.addEventListener(
-	"touchmove",
-	(e) => {
-		if (estimatePanel.classList.contains("hidden")) return
-		e.preventDefault()
-	},
-	{ passive: false }
-)
-
-document.addEventListener(
-	"touchmove",
-	(e) => {
-		if (navPanel.classList.contains("hidden")) return
-		e.preventDefault()
-	},
-	{ passive: false }
-)
-
-//Logout functionality
-document.addEventListener("click", (e) => {
-	if (!e.target.classList.contains("logout")) return
-	localStorage.removeItem("TIME-preferences")
-	preferences = ""
-	location.reload()
-})
-
-//Refresh functionality
-document.addEventListener("click", (e) => {
-	if (!e.target.classList.contains("refresh")) return
-	location.reload()
-})
