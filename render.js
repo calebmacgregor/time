@@ -1,3 +1,6 @@
+import { timeValue } from "./calculators.js"
+import { getTotalBalance } from "./apiCallFunctions.js"
+
 //Construct and populate each transaction from the API call
 export async function renderTransactions(getTransactionsData, preferences) {
 	let data = await getTransactionsData
@@ -96,4 +99,90 @@ export async function renderBalance(balanceTimeValue) {
 	//Apply balanceString to the balance
 	balanceElement.innerHTML = balanceString
 	dollarBalanceElement.innerText = dollaraBalanceString
+}
+
+//Construct and populate each transaction from the API call
+export async function renderAccounts(getAccountsData, preferences) {
+	const accounts = await getAccountsData
+
+	const accountsList = document.querySelector(".accounts-container")
+
+	accounts.forEach((account) => {
+		//Get the timeValue of each account
+		const timeValueObject = timeValue(
+			account.dollarBalance / 100,
+			preferences.rateObject
+		)
+		console.log(timeValueObject)
+
+		//Grab the template from the HTML
+		const accountTemplate = document.querySelector(".account-template")
+
+		//firstElementChild converts the template to an actual HTML element
+		//and lets assign IDs etc
+		const elt = accountTemplate.content.firstElementChild.cloneNode(true)
+
+		//Grab all the pieces of the element
+		const accountName = elt.querySelector(".account-name")
+		const accountTimeBalance = elt.querySelector(".account-time-balance")
+		const accountDollarBalance = elt.querySelector(".account-dollar-balance")
+		const accountType = elt.querySelector(".account-type")
+		const accountEmoji = elt.querySelector(".account-emoji")
+
+		//Add leading zeros if applicable
+		const timeValueString = `${
+			timeValueObject.hoursPortion < 10
+				? "0" + timeValueObject.hoursPortion
+				: timeValueObject.hoursPortion
+		}h:${
+			timeValueObject.minutesPortion < 10
+				? "0" + timeValueObject.minutesPortion
+				: timeValueObject.minutesPortion
+		}m`
+
+		const name = account.name.replace(/\p{Emoji}+/gu, "").trim()
+		const emojiArray = account.name.match(/\p{Emoji}+/gu)
+		let emoji
+		if (emojiArray) {
+			emoji = emojiArray[0]
+		} else {
+			emoji = "💰"
+		}
+
+		const formatter = new Intl.NumberFormat("en-US", {
+			style: "currency",
+			currency: "USD"
+		})
+
+		//Set all those elements
+		accountName.innerText = name
+		accountDollarBalance.innerText = formatter.format(
+			account.dollarBalance / 100
+		)
+		accountTimeBalance.innerText = timeValueString
+		accountType.innerText = account.type == "SAVER" ? "Saver" : "Spending"
+		accountEmoji.innerText = emoji
+
+		//Render transactions
+		accountsList.appendChild(elt)
+	})
+}
+
+export async function renderTotalBalance(getTotalBalanceData, preferences) {
+	const balanceAmount = await getTotalBalanceData
+	const totalBalance = document.querySelector(".total-balance")
+	const timeValueObject = timeValue(balanceAmount / 100, preferences.rateObject)
+
+	//Add leading zeros if applicable
+	const timeValueString = `${
+		timeValueObject.hoursPortion < 10
+			? "0" + timeValueObject.hoursPortion
+			: timeValueObject.hoursPortion
+	}h:${
+		timeValueObject.minutesPortion < 10
+			? "0" + timeValueObject.minutesPortion
+			: timeValueObject.minutesPortion
+	}m`
+
+	totalBalance.innerHTML = timeValueString
 }

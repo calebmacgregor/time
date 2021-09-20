@@ -4,7 +4,8 @@ import {
 	pingUp,
 	getTransactionAccounts,
 	getAccounts,
-	keyValidation
+	keyValidation,
+	getTotalBalance
 } from "./apiCallFunctions.js"
 import {
 	handleNavPanel,
@@ -34,6 +35,9 @@ if (!preferences) {
 		window.location.replace("./onboarding.html")
 	}
 }
+
+let data = await getTotalBalance(accountsURL, preferences.apiKey)
+console.log(data)
 
 ///// Load initial page elements /////
 renderBalance(
@@ -148,17 +152,10 @@ async function getBalance(accountsURL, token, rateObject) {
 		return total + parseFloat(item.attributes.balance.value)
 	}, 0)
 
-	const accounts = await getAccounts(accountsURL, token)
-	const accountsBalance = await accounts.reduce((total, item) => {
-		return total + parseFloat(item.attributes.balance.value)
-	}, 0)
-
-	const balanceTimeValue = timeValue(accountsBalance, rateObject)
 	const transactionBalanceTimeValue = timeValue(transactionBalance, rateObject)
 
 	return {
 		transactionBalanceDollarValue: transactionBalance,
-		balanceTimeValue: balanceTimeValue,
 		transactionBalanceTimeValue: transactionBalanceTimeValue
 	}
 }

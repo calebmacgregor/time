@@ -37,10 +37,28 @@ export async function getSaverAccounts(url, token) {
 export async function getAccounts(url, token) {
 	let data = await pingUp(url, token)
 
-	let accountID = await data.data.filter((account) => {
-		return account.id
+	let accountArray = await data.data.map((account) => {
+		let accountObject = {}
+
+		accountObject.id = account.id
+		accountObject.dollarBalance = account.attributes.balance.valueInBaseUnits
+		accountObject.type = account.attributes.accountType
+		accountObject.name = account.attributes.displayName
+		return accountObject
 	})
-	return accountID
+	return accountArray
+}
+
+export async function getTotalBalance(url, token) {
+	let data = await pingUp(url, token)
+
+	let balanceValue = await data.data.reduce((previousValue, currentValue) => {
+		return (
+			previousValue + parseInt(currentValue.attributes.balance.valueInBaseUnits)
+		)
+	}, 0)
+
+	return balanceValue
 }
 
 export async function keyValidation(url, token) {

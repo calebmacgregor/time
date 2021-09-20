@@ -76,6 +76,17 @@ export function toggleTransactionCurrency(e) {
 	moneySpent.classList.toggle("hidden")
 }
 
+export function toggleAccountCurrency(e) {
+	if (!e.target.classList.contains("account-related")) return
+	const account = e.target.closest(".account")
+
+	const timeBalance = account.querySelector(".account-time-balance")
+	const dollarBalance = account.querySelector(".account-dollar-balance")
+
+	timeBalance.classList.toggle("hidden")
+	dollarBalance.classList.toggle("hidden")
+}
+
 export function toggleBalanceCurrency(e) {
 	const balanceContainer = e.target.closest(".balance-container")
 
@@ -104,10 +115,17 @@ export function styleNavLinks() {
 	//Grab all nav links
 	const homeLink = document.querySelector("#home-link")
 	const preferencesLink = document.querySelector("#preferences-link")
+	const accountsLink = document.querySelector("#accounts-link")
 	const refreshLink = document.querySelector("#refresh-link")
 	const logoutLink = document.querySelector("#logout-link")
 
-	const linksArray = [homeLink, preferencesLink, refreshLink, logoutLink]
+	const linksArray = [
+		homeLink,
+		preferencesLink,
+		accountsLink,
+		refreshLink,
+		logoutLink
+	]
 
 	//Remove active statuses of all links
 	linksArray.forEach((link) => {

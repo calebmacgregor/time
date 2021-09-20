@@ -356,7 +356,7 @@ input.calculator-input {
 /* Preferences styling */
 
 .preferences-container {
-	padding: 2rem;
+	padding: 4rem 2rem;
 	height: 100vh;
 }
 
@@ -364,6 +364,85 @@ input.calculator-input {
 	color: white;
 	padding-bottom: 2rem;
 }
+
+/* Accounts styling */
+.accounts-page-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: 4rem 2rem;
+}
+
+.total-balance-container {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	color: white;
+	padding-bottom: 2rem;
+}
+
+.total-balance-indicator {
+	font-size: 14px;
+	font-weight: 700;
+	color: hsl(257, 19%, 80%);
+}
+
+.total-balance {
+	font-size: 52px;
+}
+
+.accounts-container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+}
+
+.account {
+	display: flex;
+	justify-content: space-around;
+	width: 950%;
+	border-bottom: hsl(233, 22%, 43%);
+	border-style: solid;
+	border-width: 1px;
+	border-left: hidden;
+	border-right: hidden;
+	border-top: hidden;
+	padding: 1rem 0rem;
+	color: white;
+}
+
+.account-content-left,
+.account-content-right {
+	display: flex;
+	flex-direction: column;
+}
+
+.account-name,
+.account-type {
+	font-size: 12px;
+	color: #b8b3c5;
+}
+
+.account-time-balance,
+.account-dollar-balance {
+	font-size: 32px;
+}
+
+.account-time-balance.hidden,
+.account-dollar-balance.hidden {
+	display: none;
+}
+
+.account-emoji {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 48px;
+	height: 100%;
+}
+
+/* Loading animation */
 
 .loading-container {
 	position: fixed;

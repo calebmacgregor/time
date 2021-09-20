@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, user-scalable = no, viewport-fit=cover"
+		/>
+		<meta name="theme-color" content="#000000" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta
+			name="apple-mobile-web-app-status-bar-style"
+			content="black-translucent"
+		/>
+		<script type="module" src="accounts.js"></script>
+		<link rel="stylesheet" href="style.css" />
+		<link rel="manifest" href="manifest.json" />
+		<link rel="apple-touch-icon" href="icons/apple-icon-180.png" />
+		<title>Time</title>
+	</head>
+	<body>
+		<div class="accounts-page-container">
+			<!-- Nav stuff -->
+			<div class="nav-icon">
+				<svg
+					width="13"
+					height="23"
+					viewBox="0 0 13 23"
+					fill="none"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<path
+						d="M12.5607 12.5607C13.1464 11.9749 13.1464 11.0251 12.5607 10.4393L3.01472 0.893398C2.42893 0.307612 1.47918 0.307612 0.893398 0.893398C0.307612 1.47918 0.307612 2.42893 0.893398 3.01472L9.37868 11.5L0.893398 19.9853C0.307612 20.5711 0.307612 21.5208 0.893398 22.1066C1.47918 22.6924 2.42893 22.6924 3.01472 22.1066L12.5607 12.5607ZM10.5 13H11.5V10H10.5V13Z"
+						fill="#EF496F"
+					/>
+				</svg>
+			</div>
+			<div class="nav-panel hidden">
+				<div class="nav-links">
+					<div class="nav-link-container">
+						<a href="index.html" class="nav-link" id="home-link">Home</a>
+					</div>
+					<div class="nav-link-container">
+						<a href="preferences.html" class="nav-link" id="preferences-link"
+							>Preferences</a
+						>
+					</div>
+					<div class="nav-link-container">
+						<a href="accounts.html" class="nav-link" id="accounts-link"
+							>Accounts</a
+						>
+					</div>
+					<div class="nav-link-container">
+						<p class="nav-link refresh" id="refresh-link">Refresh</p>
+					</div>
+					<div class="nav-link-container">
+						<p class="nav-link logout" id="logout-link">Log out</p>
+					</div>
+				</div>
+				<button class="logout">Logout</button>
+			</div>
+			<!-- Total balance -->
+			<div class="total-balance-container">
+				<p class="total-balance-indicator">Total balance</p>
+				<h1 class="total-balance"></h1>
+			</div>
+
+			<div class="accounts-container"></div>
+		</div>
+
+		<!-- Templates -->
+		<template class="account-template">
+			<div class="account account-related">
+				<div class="account-content-left account-related">
+					<p class="account-name account-related"></p>
+					<h2 class="account-time-balance account-related"></h2>
+					<h2 class="account-dollar-balance hidden account-related"></h2>
+					<p class="account-type account-related"></p>
+				</div>
+				<div class="account-content-right account-related">
+					<div class="account-emoji account-related"></div>
+				</div>
+			</div>
+		</template>
+
+		<!-- Service worker -->
+		<script>
+			if ("serviceWorker" in navigator) {
+				navigator.serviceWorker.register("/serviceWorker.js")
+			}
+		</script>
+	</body>
+</html>
