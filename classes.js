@@ -1,9 +1,17 @@
 export class Preferences {
-	constructor(apiKey, hideTransfers, afterTaxPay, hoursWorked, rateObject) {
+	constructor(
+		apiKey,
+		hideTransfers,
+		afterTaxPay,
+		hoursWorked,
+		rateObject,
+		expenses
+	) {
 		this.apiKey = apiKey
 		this.hideTransfers = hideTransfers
 		this.afterTaxPay = afterTaxPay
 		this.hoursWorked = hoursWorked
+		this.expenses = parseFloat(expenses)
 		this.rateObject = rateObject
 	}
 }

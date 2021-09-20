@@ -60,7 +60,7 @@
 			<form action="" class="onboarding-form">
 				<div class="inputs-container">
 					<div class="dollars-container input-container">
-						<label for="dollars-input">After tax pay</label>
+						<label for="dollars-input">After tax pay per pay period</label>
 						<input
 							type="float"
 							inputmode="decimal"
@@ -73,7 +73,7 @@
 						</p>
 					</div>
 					<div class="time-container input-container">
-						<label for="time-input">Hours worked per pay</label>
+						<label for="time-input">Hours worked per pay period</label>
 						<input
 							type="float"
 							inputmode="decimal"
@@ -85,8 +85,20 @@
 							Enter a number (no extra characters)
 						</p>
 					</div>
+					<div class="expense-container input-container">
+						<label for="expense-input">Expenses per pay period</label>
+						<input
+							type="text"
+							class="expense-input"
+							name="expense-input"
+							id="vills-preferences"
+						/>
+						<p class="expense-error hidden error">
+							Enter a number (no extra characters)
+						</p>
+					</div>
 					<div class="api-key-container input-container">
-						<label for="api-key-input">Api Key</label>
+						<label for="api-key-input">API Key</label>
 						<input
 							type="text"
 							class="api-key-input"

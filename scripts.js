@@ -23,6 +23,7 @@ import { pingURL, accountsURL, transactionsURL } from "./endpoints.js"
 ///// Global variables /////
 let nextPage
 let preferences = JSON.parse(localStorage.getItem("TIME-preferences"))
+const pingLock = { locked: false }
 
 ///// Redirect to onboarding if key is bad /////
 if (!preferences) {
@@ -126,6 +127,8 @@ function infiniteScroll() {
 //Get transactions from Up and run them through
 //the timevalue function
 async function getTransactions(url, token) {
+	if (pingLock.locked == true) return
+	pingLock.locked = true
 	let loader = document.querySelector(".loading")
 	loader.classList.remove("inactive")
 	let data = await pingUp(url, token)
@@ -134,10 +137,12 @@ async function getTransactions(url, token) {
 		return new timeTransaction(item, preferences.rateObject, timeValue)
 	})
 	loader.classList.add("inactive")
+	pingLock.locked = false
 	return output
 }
 
 async function getBalance(accountsURL, token, rateObject) {
+	if (pingLock.locked == true) return
 	const transactionAccount = await getTransactionAccounts(accountsURL, token)
 	const transactionBalance = await transactionAccount.reduce((total, item) => {
 		return total + parseFloat(item.attributes.balance.value)
