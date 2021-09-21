@@ -2,7 +2,8 @@ import {
 	handleNavPanel,
 	handleRefresh,
 	handleLogout,
-	toggleAccountCurrency
+	toggleAccountCurrency,
+	disableScroll
 } from "./utilities.js"
 import {
 	getAccounts,
@@ -45,3 +46,6 @@ document.addEventListener("click", handleRefresh)
 
 //Toggle account balance between hours and dollars
 document.addEventListener("click", toggleAccountCurrency)
+
+//Disable scroll when panels are open
+document.addEventListener("touchmove", disableScroll, { passive: false })

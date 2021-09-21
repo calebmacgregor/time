@@ -4,7 +4,8 @@ import {
 	handleNavPanel,
 	handleLogout,
 	handleRefresh,
-	styleNavLinks
+	styleNavLinks,
+	disableScroll
 } from "./utilities.js"
 import { setPreferences } from "./utilities.js"
 
@@ -43,3 +44,6 @@ document.addEventListener("click", handleRefresh)
 
 //Set preferences on submit
 document.addEventListener("click", setPreferences)
+
+//Disable scroll when panels are open
+document.addEventListener("touchmove", disableScroll, { passive: false })

@@ -11,10 +11,6 @@
 
 body {
 	position: relative;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
 	margin: auto;
 	background-color: #201d2b;
 	max-width: 768px;
@@ -93,15 +89,19 @@ html {
 }
 
 /* Balance container styling */
-.balance-container {
+
+.balance-container-wrapper {
 	position: sticky;
 	top: env(safe-area-inset-top);
 	padding: 5rem;
 	display: flex;
-	align-items: flex-start;
 	flex-direction: column;
+	align-items: center;
 	justify-content: center;
 	z-index: 1;
+}
+
+.balance-container {
 }
 
 .balance-indicator-text {
@@ -209,37 +209,61 @@ html {
 	display: none;
 }
 
+/* Preferences styling */
+
+.preferences-container {
+	padding-top: 4rem;
+	height: 100%;
+	width: 100%;
+}
+
+.preferences-header {
+	color: white;
+	padding: 0rem 0rem 2rem 2rem;
+}
+
 /* Onboarding page styling */
 
 .onboarding-container {
 	height: 100vh;
-	width: 100vw;
+	width: 100%;
 	display: flex;
-	padding: 2rem;
+	padding-top: 2rem;
 	flex-direction: column;
-	align-items: center;
+	align-items: flex-start;
 }
 
 .get-started {
 	color: white;
 	font-size: 28px;
 	font-weight: 900;
-	margin-bottom: 2rem;
+	padding: 2rem;
 }
 
 .onboarding-form {
 	display: flex;
+	width: 100%;
 	flex-direction: column;
 	align-items: center;
 	gap: 2rem;
 	color: white;
+	padding: 0rem 2rem;
 }
 
 .inputs-container {
 	display: flex;
 	flex-direction: column;
-	align-items: flex-start;
+	align-items: center;
+	justify-content: center;
 	gap: 2rem;
+	width: 100%;
+}
+
+.input-container {
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	gap: 0.5rem;
 }
 
 .numbers-input {
@@ -251,7 +275,7 @@ html {
 input[type="text"],
 input[type="float"] {
 	height: 3rem;
-	width: 70vw;
+	width: 100%;
 	border-radius: 10px;
 	border-style: none;
 	background-color: #262836;
@@ -260,18 +284,12 @@ input[type="float"] {
 	font-size: 1rem;
 }
 
-.input-container {
-	display: flex;
-	flex-direction: column;
-	gap: 0.5rem;
-}
-
 input[type="submit"] {
 	-webkit-appearance: none;
 	display: inline-block;
 	border: none;
 	border-radius: 10px;
-	width: 70vw;
+	width: 100%;
 	height: 3rem;
 	padding: 1rem 2rem;
 	margin: 0;
@@ -353,25 +371,14 @@ input.calculator-input {
 	transform: rotate(180deg);
 }
 
-/* Preferences styling */
-
-.preferences-container {
-	padding: 4rem 2rem;
-	height: 100vh;
-}
-
-.preferences-header {
-	color: white;
-	padding-bottom: 2rem;
-}
-
 /* Accounts styling */
 .accounts-page-container {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: center;
-	margin: 4rem 2rem;
+	align-items: flex-start;
+	padding: 4rem 1rem 0rem 1rem;
+	width: 100%;
 }
 
 .total-balance-container {
@@ -379,7 +386,7 @@ input.calculator-input {
 	flex-direction: column;
 	align-items: flex-start;
 	color: white;
-	padding-bottom: 2rem;
+	padding: 0rem 0rem 2rem 2rem;
 }
 
 .total-balance-indicator {
@@ -393,22 +400,24 @@ input.calculator-input {
 }
 
 .accounts-container {
+	width: 100%;
 	display: flex;
-	flex-wrap: wrap;
+	flex-direction: column;
+	align-items: center;
 	gap: 1rem;
 }
 
 .account {
 	display: flex;
-	justify-content: space-around;
-	width: 950%;
+	justify-content: space-between;
+	width: 100%;
 	border-bottom: hsl(233, 22%, 43%);
 	border-style: solid;
 	border-width: 1px;
 	border-left: hidden;
 	border-right: hidden;
 	border-top: hidden;
-	padding: 1rem 0rem;
+	padding: 1rem 2rem;
 	color: white;
 }
 
@@ -446,6 +455,8 @@ input.calculator-input {
 
 .loading-container {
 	position: fixed;
+	left: 50%;
+	transform: translateX(-50%);
 	bottom: 2rem;
 	z-index: 99999;
 }
