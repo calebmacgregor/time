@@ -1,17 +1,23 @@
 export function getTime(pay, hours, expenses) {
 	//Convert dollars to base units (cents)
 	const basePay = pay * 100
-	const baseFunPay = (pay - expenses) * 100
+	const baseNetPay = (pay - expenses) * 100
+	const baseExpenses = expenses * 100
 
 	//Calculate various rates (hour, minute, second)
 	const hourlyRate = basePay / hours
 	const minuteRate = hourlyRate / 60
 	const secondRate = minuteRate / 60
 
-	//Calculate those same rates for baseFunPay
-	const hourlyFunRate = baseFunPay / hours
-	const minuteFunRate = hourlyFunRate / 60
-	const secondFunRate = minuteFunRate / 60
+	//Calculate those same rates for baseNetPay
+	const hourlyNetRate = baseNetPay / hours
+	const minuteNetRate = hourlyNetRate / 60
+	const secondNetRate = minuteNetRate / 60
+
+	//Calculate those same rates for baseNetPay
+	const hourlySurvivalRate = baseExpenses / hours
+	const minuteSurvivalRate = hourlySurvivalRate / 60
+	const secondSurvivalRate = minuteSurvivalRate / 60
 
 	//Construct a rate object and return it
 	const rateObject = {
@@ -19,10 +25,13 @@ export function getTime(pay, hours, expenses) {
 		hourlyRate: hourlyRate,
 		minuteRate: minuteRate,
 		secondRate: secondRate,
-		baseFunPay: baseFunPay,
-		hourlyFunRate: hourlyFunRate,
-		minuteFunRate: minuteFunRate,
-		secondFunRate: secondFunRate
+		baseNetPay: baseNetPay,
+		hourlyNetRate: hourlyNetRate,
+		minuteNetRate: minuteNetRate,
+		secondNetRate: secondNetRate,
+		hourlySurvivalRate: hourlySurvivalRate,
+		minuteSurvivalRate: minuteSurvivalRate,
+		secondSurvivalRate: secondSurvivalRate
 	}
 	return rateObject
 }
@@ -38,10 +47,15 @@ export function timeValue(amount, rateObject) {
 	const totalMinutes = amountBase / rateObject.minuteRate
 	const totalSeconds = amountBase / rateObject.secondRate
 
-	//Calculate the fun totals of each time type
-	const totalFunHours = amountBase / rateObject.hourlyFunRate
-	const totalFunMinutes = amountBase / rateObject.minuteFunRate
-	const totalFunSeconds = amountBase / rateObject.secondFunRate
+	//Calculate the Net totals of each time type
+	const totalNetHours = amountBase / rateObject.hourlyNetRate
+	const totalNetMinutes = amountBase / rateObject.minuteNetRate
+	const totalNetSeconds = amountBase / rateObject.secondNetRate
+
+	//Calculate the Net totals of each time type
+	const totalSurvivalHours = amountBase / rateObject.hourlySurvivalRate
+	const totalSurvivalMinutes = amountBase / rateObject.minuteSurvivalRate
+	const totalSurvivorSeconds = amountBase / rateObject.secondSurvivalRate
 
 	//Calculate the portions of each type
 	//The total of all three portions should add up to the total time cost
@@ -50,9 +64,19 @@ export function timeValue(amount, rateObject) {
 	const minutesPortion = Math.floor(totalMinutes - hoursPortion * 60)
 	const secondsPortion = Math.floor(amountBase % rateObject.minuteRate)
 
-	const hoursFunPortion = Math.floor(amountBase / rateObject.hourlyFunRate)
-	const minutesFunPortion = Math.floor(totalFunMinutes - hoursFunPortion * 60)
-	const secondsFunPortion = Math.floor(amountBase % rateObject.minuteFunRate)
+	const hoursNetPortion = Math.floor(amountBase / rateObject.hourlyNetRate)
+	const minutesNetPortion = Math.floor(totalNetMinutes - hoursNetPortion * 60)
+	const secondsNetPortion = Math.floor(amountBase % rateObject.minuteNetRate)
+
+	const survivalHoursPortion = Math.floor(
+		amountBase / rateObject.hourlySurvivalRate
+	)
+	const survivalMinutesPortion = Math.floor(
+		totalSurvivalMinutes - survivalHoursPortion * 60
+	)
+	const survivalSecondsPortion = Math.floor(
+		amountBase % rateObject.minuteSurvivalRate
+	)
 
 	//construct and return a timeValueObject
 	const timeValueObject = {
@@ -64,9 +88,12 @@ export function timeValue(amount, rateObject) {
 		hoursPortion: hoursPortion,
 		minutesPortion: minutesPortion,
 		secondsPortion: secondsPortion,
-		hoursFunPortion: hoursFunPortion,
-		minutesFunPortion: minutesFunPortion,
-		secondsFunPortion: secondsFunPortion,
+		hoursNetPortion: hoursNetPortion,
+		minutesNetPortion: minutesNetPortion,
+		secondsNetPortion: secondsNetPortion,
+		survivalHoursPortion: survivalHoursPortion,
+		survivalMinutesPortion: survivalMinutesPortion,
+		survivalSecondsPortion: survivalSecondsPortion,
 		rateObject: rateObject
 	}
 

@@ -176,6 +176,8 @@ export function setPreferences(e) {
 	const timeInput = document.querySelector(".time-input")
 	const expenseInput = document.querySelector(".expense-input")
 	const keyInput = document.querySelector(".api-key-input")
+	const survivalInput = document.querySelector(".survival-savings-input")
+	console.log(survivalInput)
 
 	//Reset the error messages
 	dollarsError.style.display = "none"
@@ -187,7 +189,9 @@ export function setPreferences(e) {
 	const time = parseInt(timeInput.value)
 	const expense = expenseInput.value
 	const apiKey = keyInput.value
+	const survivalMode = survivalInput.checked
 	const response = keyValidation(pingURL, apiKey)
+	console.log(survivalMode)
 
 	//Check whether numbers are valid
 	const validPay = isNaN(pay) ? false : true
@@ -212,7 +216,8 @@ export function setPreferences(e) {
 				pay,
 				time,
 				getTime(pay, time, expense),
-				expense
+				expense,
+				survivalMode
 			)
 
 			//Put the preferences object into localstorage
@@ -235,4 +240,5 @@ export function setPreferences(e) {
 			}
 		}
 	})
+	console.log(survivalMode)
 }

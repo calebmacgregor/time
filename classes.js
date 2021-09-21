@@ -5,7 +5,8 @@ export class Preferences {
 		afterTaxPay,
 		hoursWorked,
 		rateObject,
-		expenses
+		expenses,
+		survivalSavingsMode
 	) {
 		this.apiKey = apiKey
 		this.hideTransfers = hideTransfers
@@ -13,6 +14,7 @@ export class Preferences {
 		this.hoursWorked = hoursWorked
 		this.expenses = parseFloat(expenses)
 		this.rateObject = rateObject
+		this.survivalSavingsMode = survivalSavingsMode
 	}
 }
 

@@ -13,6 +13,7 @@ const payInput = document.querySelector(".dollars-input")
 const timeInput = document.querySelector(".time-input")
 const expenseInput = document.querySelector(".expense-input")
 const keyInput = document.querySelector(".api-key-input")
+const survivalSavingsInput = document.querySelector(".survival-savings-input")
 
 //Redirect if the key in storage is bad
 let preferences = JSON.parse(localStorage.getItem("TIME-preferences"))
@@ -30,6 +31,7 @@ payInput.value = preferences.afterTaxPay
 timeInput.value = preferences.hoursWorked
 expenseInput.value = preferences.expenses
 keyInput.value = preferences.apiKey
+survivalSavingsInput.checked = preferences.survivalSavingsMode
 
 styleNavLinks()
 
