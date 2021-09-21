@@ -36,9 +36,6 @@ if (!preferences) {
 	}
 }
 
-let data = await getTotalBalance(accountsURL, preferences.apiKey)
-console.log(data)
-
 ///// Load initial page elements /////
 renderBalance(
 	getBalance(accountsURL, preferences.apiKey, preferences.rateObject)
@@ -109,6 +106,7 @@ function handleCalculator(e) {
 		}m`
 
 		calculatorResult.innerText = timeValueString
+		console.log(timeValueObject)
 	}
 }
 

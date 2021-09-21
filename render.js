@@ -1,5 +1,36 @@
 import { timeValue } from "./calculators.js"
-import { getTotalBalance } from "./apiCallFunctions.js"
+
+export async function renderBalance(balanceTimeValue) {
+	const balanceElement = document.querySelector(".balance")
+	const dollarBalanceElement = document.querySelector(".dollar-balance")
+	const balanceIndicatorText = document.querySelector(".balance-indicator-text")
+	const balanceObject = await balanceTimeValue
+	let chosenObject
+
+	if (balanceElement.classList.contains("total")) {
+		balanceIndicatorText.innerText = "Total balance"
+		chosenObject = balanceObject.balanceTimeValue
+	} else {
+		balanceIndicatorText.innerText = "Spending balance"
+		chosenObject = balanceObject.transactionBalanceTimeValue
+	}
+
+	const balanceString = `${
+		chosenObject.hoursPortion < 10
+			? "0" + chosenObject.hoursPortion
+			: chosenObject.hoursPortion
+	}h:${
+		chosenObject.minutesPortion < 10
+			? "0" + chosenObject.minutesPortion
+			: chosenObject.minutesPortion
+	}m`
+
+	const dollaraBalanceString = `$${balanceObject.transactionBalanceDollarValue}`
+
+	//Apply balanceString to the balance
+	balanceElement.innerHTML = balanceString
+	dollarBalanceElement.innerText = dollaraBalanceString
+}
 
 //Construct and populate each transaction from the API call
 export async function renderTransactions(getTransactionsData, preferences) {
@@ -67,38 +98,6 @@ export async function renderTransactions(getTransactionsData, preferences) {
 			list.appendChild(elt)
 		}
 	})
-}
-
-export async function renderBalance(balanceTimeValue) {
-	const balanceElement = document.querySelector(".balance")
-	const dollarBalanceElement = document.querySelector(".dollar-balance")
-	const balanceIndicatorText = document.querySelector(".balance-indicator-text")
-	const balanceObject = await balanceTimeValue
-	let chosenObject
-
-	if (balanceElement.classList.contains("total")) {
-		balanceIndicatorText.innerText = "Total balance"
-		chosenObject = balanceObject.balanceTimeValue
-	} else {
-		balanceIndicatorText.innerText = "Spending balance"
-		chosenObject = balanceObject.transactionBalanceTimeValue
-	}
-
-	const balanceString = `${
-		chosenObject.hoursPortion < 10
-			? "0" + chosenObject.hoursPortion
-			: chosenObject.hoursPortion
-	}h:${
-		chosenObject.minutesPortion < 10
-			? "0" + chosenObject.minutesPortion
-			: chosenObject.minutesPortion
-	}m`
-
-	const dollaraBalanceString = `$${balanceObject.transactionBalanceDollarValue}`
-
-	//Apply balanceString to the balance
-	balanceElement.innerHTML = balanceString
-	dollarBalanceElement.innerText = dollaraBalanceString
 }
 
 //Construct and populate each transaction from the API call

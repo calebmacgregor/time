@@ -211,7 +211,7 @@ export function setPreferences(e) {
 				true,
 				pay,
 				time,
-				getTime(pay, time),
+				getTime(pay, time, expense),
 				expense
 			)
 
