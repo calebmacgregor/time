@@ -54,7 +54,7 @@ export function disableScroll(e) {
 }
 
 export function fadeBalance() {
-	const balanceContainer = document.querySelector(".balance-container")
+	const balanceContainer = document.querySelector(".balance-container-wrapper")
 	const balanceContainerHeight = balanceContainer.offsetHeight
 	let scrollLocation = window.pageYOffset
 
@@ -92,8 +92,8 @@ export function toggleBalanceCurrency(e) {
 
 	if (!balanceContainer) return
 
-	const timeBalance = balanceContainer.querySelector(".total-balance")
-	const dollarBalance = balanceContainer.querySelector(".total-dollar-balance")
+	const timeBalance = balanceContainer.querySelector(".balance")
+	const dollarBalance = balanceContainer.querySelector(".dollar-balance")
 
 	timeBalance.classList.toggle("hidden")
 	dollarBalance.classList.toggle("hidden")

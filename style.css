@@ -33,7 +33,7 @@ html {
 	left: 1rem;
 	width: 2rem;
 	top: calc(1rem + env(safe-area-inset-top));
-	z-index: 2;
+	z-index: 1;
 	transition: ease 300ms;
 }
 
@@ -99,9 +99,13 @@ html {
 	align-items: center;
 	justify-content: center;
 	z-index: 1;
+	pointer-events: none;
 }
 
 .balance-container {
+	width: 100%;
+	height: 100%;
+	pointer-events: all;
 }
 
 .balance-indicator-text {
@@ -129,6 +133,7 @@ html {
 }
 
 .list {
+	position: relative;
 	width: 100%;
 	height: auto;
 	align-items: center;
@@ -137,7 +142,7 @@ html {
 	flex-direction: column;
 	background-color: #252836;
 	border-radius: 20px 20px 0px 0px;
-	z-index: 2;
+	z-index: 5;
 }
 
 .transaction {
