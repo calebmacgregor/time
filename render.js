@@ -128,16 +128,31 @@ export async function renderAccounts(getAccountsData, preferences) {
 		const accountType = elt.querySelector(".account-type")
 		const accountEmoji = elt.querySelector(".account-emoji")
 
-		//Add leading zeros if applicable
-		const timeValueString = `${
-			timeValueObject.hoursPortion < 10
-				? "0" + timeValueObject.hoursPortion
-				: timeValueObject.hoursPortion
-		}h:${
-			timeValueObject.minutesPortion < 10
-				? "0" + timeValueObject.minutesPortion
-				: timeValueObject.minutesPortion
-		}m`
+		if (preferences.survivalSavingsMode) {
+			//Add leading zeros if applicable
+			const timeValueString = `${
+				timeValueObject.survivalHoursPortion < 10
+					? "0" + timeValueObject.survivalHoursPortion
+					: timeValueObject.survivalHoursPortion
+			}h:${
+				timeValueObject.survivalMinutesPortion < 10
+					? "0" + timeValueObject.survivalMinutesPortion
+					: timeValueObject.survivalMinutesPortion
+			}m`
+			accountTimeBalance.innerText = timeValueString
+		} else {
+			//Add leading zeros if applicable
+			const timeValueString = `${
+				timeValueObject.hoursPortion < 10
+					? "0" + timeValueObject.hoursPortion
+					: timeValueObject.hoursPortion
+			}h:${
+				timeValueObject.minutesPortion < 10
+					? "0" + timeValueObject.minutesPortion
+					: timeValueObject.minutesPortion
+			}m`
+			accountTimeBalance.innerText = timeValueString
+		}
 
 		const name = account.name.replace(/\p{Emoji}+/gu, "").trim()
 		const emojiArray = account.name.match(/\p{Emoji}+/gu)
@@ -158,7 +173,7 @@ export async function renderAccounts(getAccountsData, preferences) {
 		accountDollarBalance.innerText = formatter.format(
 			account.dollarBalance / 100
 		)
-		accountTimeBalance.innerText = timeValueString
+
 		accountType.innerText = account.type == "SAVER" ? "Saver" : "Spending"
 		accountEmoji.innerText = emoji
 
@@ -171,6 +186,9 @@ export async function renderTotalBalance(getTotalBalanceData, preferences) {
 	const balanceAmount = await getTotalBalanceData
 	const totalBalance = document.querySelector(".total-balance")
 	const totalDollarBalance = document.querySelector(".total-dollar-balance")
+	const totalBalanceIndicator = document.querySelector(
+		".total-balance-indicator"
+	)
 	const timeValueObject = timeValue(balanceAmount / 100, preferences.rateObject)
 
 	const formatter = new Intl.NumberFormat("en-US", {
@@ -178,16 +196,33 @@ export async function renderTotalBalance(getTotalBalanceData, preferences) {
 		currency: "USD"
 	})
 
-	//Add leading zeros if applicable
-	const timeValueString = `${
-		timeValueObject.hoursPortion < 10
-			? "0" + timeValueObject.hoursPortion
-			: timeValueObject.hoursPortion
-	}h:${
-		timeValueObject.minutesPortion < 10
-			? "0" + timeValueObject.minutesPortion
-			: timeValueObject.minutesPortion
-	}m`
+	if (preferences.survivalSavingsMode) {
+		//Add leading zeros if applicable
+		const timeValueString = `${
+			timeValueObject.survivalHoursPortion < 10
+				? "0" + timeValueObject.survivalHoursPortion
+				: timeValueObject.survivalHoursPortion
+		}h:${
+			timeValueObject.survivalMinutesPortion < 10
+				? "0" + timeValueObject.survivalMinutesPortion
+				: timeValueObject.survivalMinutesPortion
+		}m`
+		totalBalanceIndicator.innerText = "Total survival balance"
+		totalBalance.innerHTML = timeValueString
+	} else {
+		//Add leading zeros if applicable
+		const timeValueString = `${
+			timeValueObject.hoursPortion < 10
+				? "0" + timeValueObject.hoursPortion
+				: timeValueObject.hoursPortion
+		}h:${
+			timeValueObject.minutesPortion < 10
+				? "0" + timeValueObject.minutesPortion
+				: timeValueObject.minutesPortion
+		}m`
+		totalBalanceIndicator.innerText = "Total  balance"
+		totalBalance.innerHTML = timeValueString
+	}
+
 	totalDollarBalance.innerHTML = formatter.format(balanceAmount / 100)
-	totalBalance.innerHTML = timeValueString
 }
