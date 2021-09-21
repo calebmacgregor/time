@@ -391,7 +391,7 @@ input.calculator-input {
 	flex-direction: column;
 	align-items: flex-start;
 	color: white;
-	padding: 0rem 0rem 2rem 2rem;
+	padding: 1rem;
 }
 
 .total-balance-indicator {
@@ -402,7 +402,7 @@ input.calculator-input {
 
 .total-balance,
 .total-dollar-balance {
-	font-size: 52px;
+	font-size: 58px;
 }
 
 .accounts-container {
@@ -423,7 +423,7 @@ input.calculator-input {
 	border-left: hidden;
 	border-right: hidden;
 	border-top: hidden;
-	padding: 1rem 2rem;
+	padding: 1rem;
 	color: white;
 }
 
