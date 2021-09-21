@@ -92,8 +92,22 @@ export function toggleBalanceCurrency(e) {
 
 	if (!balanceContainer) return
 
-	const timeBalance = balanceContainer.querySelector(".balance")
-	const dollarBalance = balanceContainer.querySelector(".dollar-balance")
+	const timeBalance = balanceContainer.querySelector(".total-balance")
+	const dollarBalance = balanceContainer.querySelector(".total-dollar-balance")
+
+	timeBalance.classList.toggle("hidden")
+	dollarBalance.classList.toggle("hidden")
+}
+
+export function toggleTotalBalanceCurrency(e) {
+	const totalBalanceContainer = e.target.closest(".total-balance-container")
+
+	if (!totalBalanceContainer) return
+
+	const timeBalance = totalBalanceContainer.querySelector(".total-balance")
+	const dollarBalance = totalBalanceContainer.querySelector(
+		".total-dollar-balance"
+	)
 
 	timeBalance.classList.toggle("hidden")
 	dollarBalance.classList.toggle("hidden")

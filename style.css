@@ -395,7 +395,8 @@ input.calculator-input {
 	color: hsl(257, 19%, 80%);
 }
 
-.total-balance {
+.total-balance,
+.total-dollar-balance {
 	font-size: 52px;
 }
 
@@ -449,6 +450,11 @@ input.calculator-input {
 	justify-content: center;
 	font-size: 48px;
 	height: 100%;
+}
+
+.total-balance.hidden,
+.total-dollar-balance.hidden {
+	display: none;
 }
 
 /* Loading animation */

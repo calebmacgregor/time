@@ -171,7 +171,13 @@ export async function renderAccounts(getAccountsData, preferences) {
 export async function renderTotalBalance(getTotalBalanceData, preferences) {
 	const balanceAmount = await getTotalBalanceData
 	const totalBalance = document.querySelector(".total-balance")
+	const totalDollarBalance = document.querySelector(".total-dollar-balance")
 	const timeValueObject = timeValue(balanceAmount / 100, preferences.rateObject)
+
+	const formatter = new Intl.NumberFormat("en-US", {
+		style: "currency",
+		currency: "USD"
+	})
 
 	//Add leading zeros if applicable
 	const timeValueString = `${
@@ -183,6 +189,6 @@ export async function renderTotalBalance(getTotalBalanceData, preferences) {
 			? "0" + timeValueObject.minutesPortion
 			: timeValueObject.minutesPortion
 	}m`
-
+	totalDollarBalance.innerHTML = formatter.format(balanceAmount / 100)
 	totalBalance.innerHTML = timeValueString
 }
