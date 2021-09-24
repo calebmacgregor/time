@@ -1,7 +1,6 @@
-export function getTime(pay, hours, expenses, daysPerPay = 14) {
+export function getRateObject(pay, hours, expenses, daysPerPay = 14) {
   //Convert dollars to base units (cents)
   const basePay = pay * 100
-  const baseNetPay = (pay - expenses) * 100
   const baseExpenses = expenses * 100
 
   //Calculate various rates (hour, minute, second)
@@ -31,26 +30,18 @@ export function getTime(pay, hours, expenses, daysPerPay = 14) {
 }
 
 //Return an object that shows the time cost of an item.
-//Requires a rateObject generated using getTime
+//Requires a rateObject generated using getRateObject
 export function timeValue(amount, rateObject) {
   //Convert the dollars to base units (cents)
   const amountBase = amount * 100
-
-  //Calculate the totals of each time type
-  const totalHours = amountBase / rateObject.hourlyRate
-  const totalMinutes = amountBase / rateObject.minuteRate
-  const totalSeconds = amountBase / rateObject.secondRate
-
-  //Calculate the survival totals of each time type
-  const totalSurvivalHours = amountBase / rateObject.hourlySurvivalRate
-  const totalSurvivalMinutes = amountBase / rateObject.minuteSurvivalRate
-  const totalSurvivorSeconds = amountBase / rateObject.secondSurvivalRate
 
   //Calculate the portions of each type
   //The total of all three portions should add up to the total time cost
   //This is used for populating the balances, costs etc
   const hoursPortion = Math.floor(amountBase / rateObject.hourlyRate)
-  const minutesPortion = Math.floor(totalMinutes - hoursPortion * 60)
+  const minutesPortion = Math.floor(
+    (amountBase - hoursPortion * rateObject.hourlyRate) / rateObject.minuteRate
+  )
   const secondsPortion = Math.floor(amountBase % rateObject.minuteRate)
 
   const survivalDailyPortion = Math.floor(
@@ -68,31 +59,16 @@ export function timeValue(amount, rateObject) {
       rateObject.minuteSurvivalRate
   )
 
-  // const survivalHoursPortion = Math.floor(
-  //   amountBase / rateObject.hourlySurvivalRate
-  // )
-  // const survivalMinutesPortion = Math.floor(
-  //   totalSurvivalMinutes - survivalHoursPortion * 60
-  // )
-  // const survivalSecondsPortion = Math.floor(
-  //   amountBase % rateObject.minuteSurvivalRate
-  // )
-
   //construct and return a timeValueObject
   const timeValueObject = {
     amount: amount,
     amountBase: amountBase,
-    totalHours: totalHours,
-    totalMinutes: totalMinutes,
-    totalSeconds: totalSeconds,
     hoursPortion: hoursPortion,
     minutesPortion: minutesPortion,
     secondsPortion: secondsPortion,
     survivalDailyPortion: survivalDailyPortion,
     survivalHoursPortion: survivalHoursPortion,
     survivalMinutesPortion: survivalMinutesPortion,
-    // survivalSecondsPortion: survivalSecondsPortion,
-    rateObject: rateObject,
   }
 
   return timeValueObject

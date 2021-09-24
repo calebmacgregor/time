@@ -1,4 +1,4 @@
-import { getTime } from "./calculators.js"
+import { getRateObject } from "./calculators.js"
 import { keyValidation } from "./apiCallFunctions.js"
 import { Preferences } from "./classes.js"
 import { pingURL } from "./endpoints.js"
@@ -199,7 +199,7 @@ export function setPreferences(e) {
         true,
         pay,
         time,
-        getTime(pay, time, expense),
+        getRateObject(pay, time, expense),
         expense,
         survivalMode
       )
