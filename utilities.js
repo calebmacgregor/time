@@ -32,7 +32,7 @@ export function disableScroll(e) {
   const calculatorPanel = document.querySelector(".calculator-panel")
   if (
     navPanel.classList.contains("hidden") &&
-    calculatorPanel.classList.contains("hidden")
+    (calculatorPanel == null || calculatorPanel.classList.contains("hidden"))
   )
     return
   e.preventDefault()

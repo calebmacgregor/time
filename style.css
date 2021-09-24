@@ -465,7 +465,7 @@ input.calculator-input {
 
 .total-balance,
 .total-dollar-balance {
-  font-size: 58px;
+  font-size: 48px;
 }
 
 .accounts-container {
@@ -504,7 +504,7 @@ input.calculator-input {
 
 .account-time-balance,
 .account-dollar-balance {
-  font-size: 32px;
+  font-size: 28px;
 }
 
 .account-time-balance.hidden,
