@@ -5,6 +5,38 @@ export const formatter = new Intl.NumberFormat("en-US", {
   currency: "USD",
 })
 
+export function generateTimeValueString(timeValueObject, type = "standard") {
+  let timeValueString
+
+  if (type == "standard") {
+    timeValueString = `${
+      timeValueObject.hoursPortion < 10
+        ? "0" + timeValueObject.hoursPortion
+        : timeValueObject.hoursPortion
+    }h:${
+      timeValueObject.minutesPortion < 10
+        ? "0" + timeValueObject.minutesPortion
+        : timeValueObject.minutesPortion
+    }m`
+  } else if (type == "survival") {
+    timeValueString = `${
+      timeValueObject.survivalDailyPortion < 10
+        ? "0" + timeValueObject.survivalDailyPortion
+        : timeValueObject.survivalDailyPortion
+    }d:${
+      timeValueObject.survivalHoursPortion < 10
+        ? "0" + timeValueObject.survivalHoursPortion
+        : timeValueObject.survivalHoursPortion
+    }h:${
+      timeValueObject.survivalMinutesPortion < 10
+        ? "0" + timeValueObject.survivalMinutesPortion
+        : timeValueObject.survivalMinutesPortion
+    }m`
+  }
+
+  return timeValueString
+}
+
 export async function renderBalance(balanceTimeValue) {
   const balanceElement = document.querySelector(".balance")
   const dollarBalanceElement = document.querySelector(".dollar-balance")
@@ -20,15 +52,7 @@ export async function renderBalance(balanceTimeValue) {
     chosenObject = balanceObject.transactionBalanceTimeValue
   }
 
-  const balanceString = `${
-    chosenObject.hoursPortion < 10
-      ? "0" + chosenObject.hoursPortion
-      : chosenObject.hoursPortion
-  }h:${
-    chosenObject.minutesPortion < 10
-      ? "0" + chosenObject.minutesPortion
-      : chosenObject.minutesPortion
-  }m`
+  const balanceString = generateTimeValueString(chosenObject)
 
   const dollarBalanceString = `$${balanceObject.transactionBalanceDollarValue}`
 
@@ -61,16 +85,7 @@ export async function renderTransactions(getTransactionsData, preferences) {
     const moneySpent = elt.querySelector(".money-spent")
     const positiveIndicator = elt.querySelector(".positive-indicator")
 
-    //Add leading zeros if applicable
-    const timeValueString = `${
-      timeValueObject.hoursPortion < 10
-        ? "0" + timeValueObject.hoursPortion
-        : timeValueObject.hoursPortion
-    }h:${
-      timeValueObject.minutesPortion < 10
-        ? "0" + timeValueObject.minutesPortion
-        : timeValueObject.minutesPortion
-    }m`
+    const timeValueString = generateTimeValueString(timeValueObject)
 
     description.innerText = item.attributes.description
     datetime.innerText = `${createdTime.toLocaleString("en-AU", {
@@ -117,7 +132,6 @@ export async function renderAccounts(getAccountsData, preferences) {
       account.dollarBalance / 100,
       preferences.rateObject
     )
-    console.log(timeValueObject)
 
     //Grab the template from the HTML
     const accountTemplate = document.querySelector(".account-template")
@@ -132,34 +146,12 @@ export async function renderAccounts(getAccountsData, preferences) {
     const accountDollarBalance = elt.querySelector(".account-dollar-balance")
     const accountType = elt.querySelector(".account-type")
     const accountEmoji = elt.querySelector(".account-emoji")
-    let timeValueString
 
+    let timeValueString
     if (preferences.survivalSavingsMode) {
-      //Add leading zeros if applicable
-      timeValueString = `${
-        timeValueObject.survivalDailyPortion < 10
-          ? "0" + timeValueObject.survivalDailyPortion
-          : timeValueObject.survivalDailyPortion
-      }d:${
-        timeValueObject.survivalHoursPortion < 10
-          ? "0" + timeValueObject.survivalHoursPortion
-          : timeValueObject.survivalHoursPortion
-      }h:${
-        timeValueObject.survivalMinutesPortion < 10
-          ? "0" + timeValueObject.survivalMinutesPortion
-          : timeValueObject.survivalMinutesPortion
-      }m`
+      timeValueString = generateTimeValueString(timeValueObject, "survival")
     } else {
-      //Add leading zeros if applicable
-      timeValueString = `${
-        timeValueObject.hoursPortion < 10
-          ? "0" + timeValueObject.hoursPortion
-          : timeValueObject.hoursPortion
-      }h:${
-        timeValueObject.minutesPortion < 10
-          ? "0" + timeValueObject.minutesPortion
-          : timeValueObject.minutesPortion
-      }m`
+      timeValueString = generateTimeValueString(timeValueObject, "standard")
     }
 
     accountTimeBalance.innerText = timeValueString
@@ -199,36 +191,13 @@ export async function renderTotalBalance(getTotalBalanceData, preferences) {
   let timeValueString
 
   if (preferences.survivalSavingsMode) {
-    //Add leading zeros if applicable
-    timeValueString = `${
-      timeValueObject.survivalDailyPortion < 10
-        ? "0" + timeValueObject.survivalDailyPortion
-        : timeValueObject.survivalDailyPortion
-    }d:${
-      timeValueObject.survivalHoursPortion < 10
-        ? "0" + timeValueObject.survivalHoursPortion
-        : timeValueObject.survivalHoursPortion
-    }h:${
-      timeValueObject.survivalMinutesPortion < 10
-        ? "0" + timeValueObject.survivalMinutesPortion
-        : timeValueObject.survivalMinutesPortion
-    }m`
+    timeValueString = generateTimeValueString(timeValueObject, "survival")
     totalBalanceIndicator.innerText = "Total survival balance"
   } else {
-    //Add leading zeros if applicable
-    timeValueString = `${
-      timeValueObject.hoursPortion < 10
-        ? "0" + timeValueObject.hoursPortion
-        : timeValueObject.hoursPortion
-    }h:${
-      timeValueObject.minutesPortion < 10
-        ? "0" + timeValueObject.minutesPortion
-        : timeValueObject.minutesPortion
-    }m`
+    timeValueString = generateTimeValueString(timeValueObject, "standard")
     totalBalanceIndicator.innerText = "Total balance"
   }
 
   totalBalance.innerHTML = timeValueString
-
   totalDollarBalance.innerHTML = formatter.format(balanceAmount / 100)
 }
