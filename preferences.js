@@ -1,11 +1,11 @@
 import { keyValidation } from "./apiCallFunctions.js"
 import { pingURL } from "./endpoints.js"
 import {
-	handleNavPanel,
-	handleLogout,
-	handleRefresh,
-	styleNavLinks,
-	disableScroll
+  handleNavPanel,
+  handleLogout,
+  handleRefresh,
+  styleNavLinks,
+  disableScroll,
 } from "./utilities.js"
 import { setPreferences } from "./utilities.js"
 
@@ -18,12 +18,12 @@ const survivalSavingsInput = document.querySelector(".survival-savings-input")
 //Redirect if the key in storage is bad
 let preferences = JSON.parse(localStorage.getItem("TIME-preferences"))
 if (!preferences) {
-	window.location.replace("./onboarding.html")
+  window.location.replace("./onboarding.html")
 } else if (preferences) {
-	let result = await keyValidation(pingURL, preferences.apiKey)
-	if (result.ok == false) {
-		window.location.replace("./onboarding.html")
-	}
+  let result = await keyValidation(pingURL, preferences.apiKey)
+  if (result.ok == false) {
+    window.location.replace("./onboarding.html")
+  }
 }
 
 //Set the input values using data from the preferences object

@@ -24,6 +24,21 @@ html {
   background-attachment: fixed;
 }
 
+.transition-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: #201d2b;
+  transition: 150ms;
+  z-index: 9999;
+}
+
+.transition-panel.tucked {
+  transform: translateX(-100%);
+}
+
 /* Navigation styling */
 .nav-icon {
   display: flex;
