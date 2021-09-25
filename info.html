@@ -13,7 +13,7 @@
 			name="apple-mobile-web-app-status-bar-style"
 			content="black-translucent"
 		/>
-		<script type="module" src="scripts.js"></script>
+		<script type="module" src="info.js"></script>
 		<link rel="stylesheet" href="style.css" />
 		<link rel="manifest" href="manifest.json" />
 		<link rel="apple-touch-icon" href="icons/apple-icon-180.png" />
@@ -64,73 +64,28 @@
 			</div>
 			<button class="logout">Logout</button>
 		</div>
-		<!-- Top balance container -->
-		<div class="balance-container-wrapper">
-			<div class="balance-container value-container">
-				<p class="balance-indicator-text currency-indicator"></p>
-				<h1 class="balance balance-header time-value"></h1>
-				<h1 class="dollar-balance balance-header hidden dollar-value"></h1>
+		<div class="info-container">
+			<div class="how-it-works-container">
+				<h1 class="how-it-works">How it works</h1>
+				<span class="how-it-works-content">
+					It's simple: Time is money, and this shows your money as time. There
+					are two different kinds of time: Earned and Survival.
+				</span>
+			</div>
+			<div class="earned-vs-survival-container">
+				<h1 class="earned-vs-survival">Earned vs Survival</h1>
+				<span class="earned-vs-survival-content">
+					Earned time is based on your hourly (and your minute-ly) rate. So if
+					you earn $10 per hour and buy something worth $40, you just spent 4
+					earned hours. Earned time is the default view for transactions and
+					your current spending balance. <br /><br />
+					Survival time is based on your expenses and pay frequency. It tells
+					you how many days, hours and minutes worth of bills you could pay with
+					your savings. Survival time can be turned on for the Accounts page in
+					preferences.
+				</span>
 			</div>
 		</div>
-		<ul class="list" id="list"></ul>
-		<!-- calculator container -->
-		<div class="calculator-panel tucked">
-			<h2 class="calculator-result">Calculator</h2>
-			<input
-				type="float"
-				inputmode="decimal"
-				class="calculator-input"
-				placeholder="Enter a value"
-				name="calculator-input"
-			/>
-		</div>
-		<!-- Loading icon -->
-		<div class="calculator-button maximise">
-			<svg
-				width="24"
-				height="14"
-				viewBox="0 0 24 14"
-				fill="none"
-				xmlns="http://www.w3.org/2000/svg"
-			>
-				<path
-					d="M10.9393 13.0607C11.5251 13.6464 12.4749 13.6464 13.0607 13.0607L22.6066 3.51472C23.1924 2.92893 23.1924 1.97918 22.6066 1.3934C22.0208 0.807612 21.0711 0.807612 20.4853 1.3934L12 9.87868L3.51472 1.3934C2.92893 0.807612 1.97918 0.807612 1.3934 1.3934C0.807612 1.97918 0.807612 2.92893 1.3934 3.51472L10.9393 13.0607ZM10.5 11V12H13.5V11H10.5Z"
-					fill="black"
-				/>
-			</svg>
-		</div>
-		<div class="loading-container">
-			<div class="loading">
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-			</div>
-		</div>
-		<!-- Templates -->
-		<template class="transaction-template">
-			<li class="transaction value-container">
-				<div class="transaction-left">
-					<h4 class="description"></h4>
-					<h4 class="datetime"></h4>
-				</div>
-				<div class="transaction-right">
-					<svg
-						width="12"
-						height="11"
-						viewBox="0 0 7 6"
-						fill="none"
-						xmlns="http://www.w3.org/2000/svg"
-						class="positive-indicator"
-					>
-						<path d="M3.5 0L6.53109 5.25H0.468911L3.5 0Z" fill="#1CBA2C" />
-					</svg>
-
-					<h2 class="time-value transaction-value"></h2>
-					<h2 class="dollar-value transaction-value hidden"></h2>
-				</div>
-			</li>
-		</template>
 
 		<!-- Service worker -->
 		<script>
