@@ -9,7 +9,7 @@ export function handleNavPanel(e) {
 
   const navPanel = document.querySelector(".nav-panel")
 
-  navPanel.classList.toggle("hidden")
+  navPanel.classList.toggle("tucked")
   navIcon.classList.toggle("expanded")
 }
 
@@ -22,7 +22,7 @@ export function handleCalculatorPanel(e) {
   const calculatorResult = document.querySelector(".calculator-result")
 
   calculatorButton.classList.toggle("maximise")
-  calculatorPanel.classList.toggle("hidden")
+  calculatorPanel.classList.toggle("tucked")
   calculatorInput.value = ""
   calculatorResult.innerText = "Calculator"
 }
@@ -31,8 +31,8 @@ export function disableScroll(e) {
   const navPanel = document.querySelector(".nav-panel")
   const calculatorPanel = document.querySelector(".calculator-panel")
   if (
-    navPanel.classList.contains("hidden") &&
-    (calculatorPanel == null || calculatorPanel.classList.contains("hidden"))
+    navPanel.classList.contains("tucked") &&
+    (calculatorPanel == null || calculatorPanel.classList.contains("tucked"))
   )
     return
   e.preventDefault()
@@ -208,7 +208,7 @@ export function setPreferences(e) {
       localStorage.setItem("TIME-preferences", JSON.stringify(newPreferences))
 
       //Redirect to the main page
-      window.location.replace("./")
+      window.location.replace(document.referrer)
     } else {
       if (!validPay) {
         dollarsError.style.display = "block"
