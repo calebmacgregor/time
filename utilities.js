@@ -54,7 +54,6 @@ export function toggleCurrency(e) {
   const valueContainer = e.target.closest(".value-container")
 
   if (!valueContainer) return
-  console.log("Toggling currency")
 
   const timeValue = valueContainer.querySelector(".time-value")
   const dollarValue = valueContainer.querySelector(".dollar-value")
