@@ -81,8 +81,8 @@ export async function renderTransactions(getTransactionsData, preferences) {
 
     const description = elt.querySelector(".description")
     const datetime = elt.querySelector(".datetime")
-    const timeSpent = elt.querySelector(".time-spent")
-    const moneySpent = elt.querySelector(".money-spent")
+    const timeValue = elt.querySelector(".time-value")
+    const dollarValue = elt.querySelector(".dollar-value")
     const positiveIndicator = elt.querySelector(".positive-indicator")
 
     const timeValueString = generateTimeValueString(timeValueObject)
@@ -94,8 +94,8 @@ export async function renderTransactions(getTransactionsData, preferences) {
     })}, ${createdTime.toLocaleTimeString("en-AU", {
       timeStyle: "short",
     })}`
-    timeSpent.innerText = timeValueString
-    moneySpent.innerText = `$${timeValueObject.amount}`
+    timeValue.innerText = timeValueString
+    dollarValue.innerText = `$${timeValueObject.amount}`
 
     //Set the id to be the same as the transaction id from the API
     elt.id = item.id
@@ -142,8 +142,8 @@ export async function renderAccounts(getAccountsData, preferences) {
 
     //Grab all the pieces of the element
     const accountName = elt.querySelector(".account-name")
-    const accountTimeBalance = elt.querySelector(".account-time-balance")
-    const accountDollarBalance = elt.querySelector(".account-dollar-balance")
+    const accountTimeBalance = elt.querySelector(".time-value")
+    const accountDollarBalance = elt.querySelector(".dollar-value")
     const accountType = elt.querySelector(".account-type")
     const accountEmoji = elt.querySelector(".account-emoji")
 
@@ -174,30 +174,30 @@ export async function renderAccounts(getAccountsData, preferences) {
     accountType.innerText = account.type == "SAVER" ? "Saver" : "Spending"
     accountEmoji.innerText = emoji
 
-    //Render transactions
+    //Render accounts
     accountsList.appendChild(elt)
   })
 }
 
 export async function renderTotalBalance(getTotalBalanceData, preferences) {
   const balanceAmount = await getTotalBalanceData
-  const totalBalance = document.querySelector(".total-balance")
-  const totalDollarBalance = document.querySelector(".total-dollar-balance")
-  const totalBalanceIndicator = document.querySelector(
-    ".total-balance-indicator"
+  const totalTimeBalance = document.querySelector(".balance-header.time-value")
+  const totalDollarBalance = document.querySelector(
+    ".balance-header.dollar-value"
   )
+  const currencyIndicator = document.querySelector(".currency-indicator")
   const timeValueObject = timeValue(balanceAmount / 100, preferences.rateObject)
 
   let timeValueString
 
   if (preferences.survivalSavingsMode) {
     timeValueString = generateTimeValueString(timeValueObject, "survival")
-    totalBalanceIndicator.innerText = "Total survival balance"
+    currencyIndicator.innerText = "Total survival balance"
   } else {
     timeValueString = generateTimeValueString(timeValueObject, "standard")
-    totalBalanceIndicator.innerText = "Total balance"
+    currencyIndicator.innerText = "Total balance"
   }
 
-  totalBalance.innerHTML = timeValueString
+  totalTimeBalance.innerHTML = timeValueString
   totalDollarBalance.innerHTML = formatter.format(balanceAmount / 100)
 }

@@ -61,10 +61,10 @@
         <button class="logout">Logout</button>
       </div>
       <!-- Total balance -->
-      <div class="total-balance-container">
-        <p class="total-balance-indicator currency-indicator"></p>
-        <h1 class="total-balance balance-header"></h1>
-        <h1 class="total-dollar-balance balance-header hidden"></h1>
+      <div class="total-balance-container value-container">
+        <p class="currency-indicator"></p>
+        <h1 class="balance-header time-value"></h1>
+        <h1 class="balance-header hidden dollar-value"></h1>
       </div>
 
       <div class="accounts-container"></div>
@@ -72,15 +72,15 @@
 
     <!-- Templates -->
     <template class="account-template">
-      <div class="account account-related">
-        <div class="account-content-left account-related">
-          <p class="account-name account-related"></p>
-          <h2 class="account-time-balance account-related"></h2>
-          <h2 class="account-dollar-balance hidden account-related"></h2>
-          <p class="account-type account-related"></p>
+      <div class="account value-container">
+        <div class="account-content-left">
+          <p class="account-name"></p>
+          <h2 class="time-value"></h2>
+          <h2 class="dollar-value hidden"></h2>
+          <p class="account-type"></p>
         </div>
-        <div class="account-content-right account-related">
-          <div class="account-emoji account-related"></div>
+        <div class="account-content-right">
+          <div class="account-emoji"></div>
         </div>
       </div>
     </template>

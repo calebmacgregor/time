@@ -176,11 +176,18 @@ html {
   border-style: none;
 }
 
-.left {
+.transaction-left {
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+.transaction-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2rem;
 }
 
 .description {
@@ -197,17 +204,9 @@ html {
   font-size: 14px;
 }
 
-.time-spent,
-.money-spent {
+.transaction-value {
   font-weight: 700;
   font-size: 16px;
-}
-
-.transaction-value-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.2rem;
 }
 
 /* Accounts styling */

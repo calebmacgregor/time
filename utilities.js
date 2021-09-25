@@ -50,52 +50,17 @@ export function fadeBalance() {
     : (balanceContainer.style.opacity = 0)
 }
 
-export function toggleTransactionCurrency(e) {
-  if (!e.target.classList.contains("transaction-related")) return
-  const transaction = e.target.closest(".transaction")
+export function toggleCurrency(e) {
+  const valueContainer = e.target.closest(".value-container")
 
-  const timeSpent = transaction.querySelector(".time-spent")
-  const moneySpent = transaction.querySelector(".money-spent")
+  if (!valueContainer) return
+  console.log("Toggling currency")
 
-  timeSpent.classList.toggle("hidden")
-  moneySpent.classList.toggle("hidden")
-}
+  const timeValue = valueContainer.querySelector(".time-value")
+  const dollarValue = valueContainer.querySelector(".dollar-value")
 
-export function toggleAccountCurrency(e) {
-  if (!e.target.classList.contains("account-related")) return
-  const account = e.target.closest(".account")
-
-  const timeBalance = account.querySelector(".account-time-balance")
-  const dollarBalance = account.querySelector(".account-dollar-balance")
-
-  timeBalance.classList.toggle("hidden")
-  dollarBalance.classList.toggle("hidden")
-}
-
-export function toggleBalanceCurrency(e) {
-  const balanceContainer = e.target.closest(".balance-container")
-
-  if (!balanceContainer) return
-
-  const timeBalance = balanceContainer.querySelector(".balance")
-  const dollarBalance = balanceContainer.querySelector(".dollar-balance")
-
-  timeBalance.classList.toggle("hidden")
-  dollarBalance.classList.toggle("hidden")
-}
-
-export function toggleTotalBalanceCurrency(e) {
-  const totalBalanceContainer = e.target.closest(".total-balance-container")
-
-  if (!totalBalanceContainer) return
-
-  const timeBalance = totalBalanceContainer.querySelector(".total-balance")
-  const dollarBalance = totalBalanceContainer.querySelector(
-    ".total-dollar-balance"
-  )
-
-  timeBalance.classList.toggle("hidden")
-  dollarBalance.classList.toggle("hidden")
+  timeValue.classList.toggle("hidden")
+  dollarValue.classList.toggle("hidden")
 }
 
 export function handleLogout(e) {

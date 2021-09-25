@@ -61,10 +61,10 @@
     </div>
     <!-- Top balance container -->
     <div class="balance-container-wrapper">
-      <div class="balance-container">
+      <div class="balance-container value-container">
         <p class="balance-indicator-text currency-indicator"></p>
-        <h1 class="balance balance-header"></h1>
-        <h1 class="dollar-balance balance-header hidden"></h1>
+        <h1 class="balance balance-header time-value"></h1>
+        <h1 class="dollar-balance balance-header hidden dollar-value"></h1>
       </div>
     </div>
     <ul class="list" id="list"></ul>
@@ -104,29 +104,25 @@
     </div>
     <!-- Templates -->
     <template class="transaction-template">
-      <li class="transaction transaction-related">
-        <div class="left transaction-related">
-          <h4 class="description transaction-related"></h4>
-          <h4 class="datetime transaction-related"></h4>
+      <li class="transaction value-container">
+        <div class="transaction-left">
+          <h4 class="description"></h4>
+          <h4 class="datetime"></h4>
         </div>
-        <div class="right transaction-related">
-          <div class="transaction-value-container">
-            <svg
-              width="12"
-              height="11"
-              viewBox="0 0 7 6"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              class="positive-indicator"
-            >
-              <path d="M3.5 0L6.53109 5.25H0.468911L3.5 0Z" fill="#1CBA2C" />
-            </svg>
+        <div class="transaction-right">
+          <svg
+            width="12"
+            height="11"
+            viewBox="0 0 7 6"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            class="positive-indicator"
+          >
+            <path d="M3.5 0L6.53109 5.25H0.468911L3.5 0Z" fill="#1CBA2C" />
+          </svg>
 
-            <h2 class="time-spent transaction-value transaction-related"></h2>
-            <h2
-              class="money-spent transaction-value hidden transaction-related"
-            ></h2>
-          </div>
+          <h2 class="time-value transaction-value"></h2>
+          <h2 class="dollar-value transaction-value hidden"></h2>
         </div>
       </li>
     </template>
