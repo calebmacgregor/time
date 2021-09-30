@@ -78,6 +78,7 @@ export function styleNavLinks() {
 	//Grab all nav links
 	const transactionsLink = document.querySelector("#transactions-link")
 	const accountsLink = document.querySelector("#accounts-link")
+	const expensesLink = document.querySelector("#expenses-link")
 	const infoLink = document.querySelector("#info-link")
 	const preferencesLink = document.querySelector("#preferences-link")
 	const refreshLink = document.querySelector("#refresh-link")
@@ -86,6 +87,7 @@ export function styleNavLinks() {
 	const linksArray = [
 		transactionsLink,
 		accountsLink,
+		expensesLink,
 		infoLink,
 		preferencesLink,
 		refreshLink,
@@ -190,4 +192,12 @@ export function setPreferences(e) {
 			}
 		}
 	})
+}
+
+export async function getTotalExpenses(aggregatedTransactions) {
+	let totalExpenses = await aggregatedTransactions.reduce((total, current) => {
+		return total + current.value
+	}, 0)
+	totalExpenses = Math.abs(totalExpenses)
+	return totalExpenses
 }

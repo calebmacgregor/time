@@ -77,6 +77,8 @@ export async function getAggregatedTransactions(
 	daysBack
 ) {
 	const output = []
+	let loader = document.querySelector(".loading")
+	loader.classList.remove("inactive")
 
 	//Loop through every category and grab the transactions
 	for (const category in categoryArray) {
@@ -126,6 +128,7 @@ export async function getAggregatedTransactions(
 		}
 	})
 
+	loader.classList.add("inactive")
 	return grouped
 }
 
