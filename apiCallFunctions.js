@@ -5,7 +5,9 @@ export async function pingUp(url, token) {
 			Authorization: `Bearer ${token}`
 		}
 	})
+	// console.log(response)
 	let data = await response.json()
+
 	return data
 }
 
@@ -142,7 +144,6 @@ export async function getCategoryTransactions(url, token, categoryArray) {
 			let data = await pingUp(url + urlAppender, token)
 			output.push(...data.data)
 		} else if (nextPage) {
-			console.log("second lap")
 			let data = await pingUp(nextPage, token)
 			output.push(...data.data)
 		}

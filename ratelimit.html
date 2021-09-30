@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, user-scalable = no, viewport-fit=cover"
+		/>
+		<meta name="theme-color" content="#000000" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta
+			name="apple-mobile-web-app-status-bar-style"
+			content="black-translucent"
+		/>
+		<script src="navpanel.js" defer></script>
+		<script type="module" src="rateLimit.js"></script>
+		<link rel="stylesheet" href="style.css" />
+		<link rel="manifest" href="manifest.json" />
+		<link rel="apple-touch-icon" href="icons/apple-icon-180.png" />
+		<title>Time</title>
+	</head>
+	<body>
+		<!-- Nav stuff -->
+		<nav-panel></nav-panel>
+		<div class="rate-limit-container">
+			<h1>Looks like you've hit the rate limit</h1>
+			<p>
+				Up has a limit on how often you can ping their API. <br /><br />
+				Regular use of the Expenses page is normally what will trigger this.
+				<br /><br />
+				Try back later.
+			</p>
+		</div>
+		<!-- Service worker -->
+		<script>
+			if ("serviceWorker" in navigator) {
+				navigator.serviceWorker.register("/serviceWorker.js")
+			}
+		</script>
+	</body>
+</html>
