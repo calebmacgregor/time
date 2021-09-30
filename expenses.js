@@ -1,50 +1,49 @@
 import {
-	handleNavPanel,
-	styleNavLinks,
-	toggleCurrency,
-	handleLogout,
-	handleRefresh,
-	disableScroll
+  handleNavPanel,
+  styleNavLinks,
+  toggleCurrency,
+  handleLogout,
+  handleRefresh,
+  disableScroll,
 } from "./utilities.js"
 import {
-	getCategories,
-	getAggregatedTransactions,
-	keyValidation
+  getCategories,
+  getAggregatedTransactions,
+  keyValidation,
 } from "./apiCallFunctions.js"
 import { transactionsURL, categoriesURL, pingURL } from "./endpoints.js"
 import {
-	renderAggregatedCategoryTransactions,
-	renderTotalExpenses
+  renderAggregatedCategoryTransactions,
+  renderTotalExpenses,
 } from "./render.js"
 
 const preferences = JSON.parse(localStorage.getItem("TIME-preferences"))
 
 ///// Redirect to onboarding if key is bad /////
 if (!preferences) {
-	window.location.replace("./onboarding.html")
+  window.location.replace("./onboarding.html")
 } else if (preferences) {
-	let result = await keyValidation(pingURL, preferences.apiKey)
-	if (result.ok == false) {
-		window.location.replace("./onboarding.html")
-	}
+  let result = await keyValidation(pingURL, preferences.apiKey)
+  if (result.ok == false) {
+    window.location.replace("./onboarding.html")
+  }
 }
 
 const categories = await getCategories(categoriesURL, preferences.apiKey)
 const categoryIDs = categories.map((item) => item.id)
-
 const aggregatedTransactions = await getAggregatedTransactions(
-	transactionsURL,
-	preferences.apiKey,
-	categoryIDs,
-	30
+  transactionsURL,
+  preferences.apiKey,
+  categoryIDs,
+  30
 )
 
 renderTotalExpenses(aggregatedTransactions, preferences)
 
 renderAggregatedCategoryTransactions(
-	aggregatedTransactions,
-	preferences,
-	categories
+  aggregatedTransactions,
+  preferences,
+  categories
 )
 
 styleNavLinks()
