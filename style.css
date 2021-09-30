@@ -625,3 +625,15 @@ input:checked + .slider:before {
 	padding: 1rem;
 	color: white;
 }
+
+/* Rate limit styling */
+.rate-limit-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	padding: 4rem 1rem 0rem 1rem;
+	width: 100%;
+	gap: 2rem;
+	color: white;
+}
