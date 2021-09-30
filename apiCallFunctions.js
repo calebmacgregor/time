@@ -69,3 +69,96 @@ export async function keyValidation(url, token) {
 	})
 	return response
 }
+
+export async function getAggregatedTransactions(
+	url,
+	token,
+	categoryArray,
+	daysBack
+) {
+	const output = []
+
+	//Loop through every category and grab the transactions
+	for (const category in categoryArray) {
+		let nextPage = url
+
+		//Create a new date object
+		const dateOfInterest = new Date()
+
+		//Offset that date by the daysBack parameter
+		dateOfInterest.setDate(dateOfInterest.getDate() - daysBack)
+
+		while (nextPage) {
+			console.log(`Grabbing transactions for ${categoryArray[category]}`)
+			//Build the parameters to construct the URL
+			const urlAppender = `&filter[category]=${
+				categoryArray[category]
+			}&filter[since]=${dateOfInterest.toISOString()}`
+
+			//Ping up to grab every transaction
+			let data = await pingUp(nextPage + urlAppender, token)
+
+			//Add latest loop to the array
+			output.push(...data.data)
+
+			//Set the next URL for the loop, or Null if there are no next pages
+			nextPage = data.links.next
+		}
+	}
+
+	const grouped = []
+
+	output.forEach((item) => {
+		let currentCategory = item.relationships.category.data.id
+
+		if (!grouped.find((element) => element.category == currentCategory)) {
+			let obj = {
+				category: undefined,
+				value: 0
+			}
+
+			obj.category = currentCategory
+			obj.value = item.attributes.amount.valueInBaseUnits
+			grouped.push(obj)
+		} else {
+			let thing = grouped.find((element) => element.category == currentCategory)
+			thing.value += item.attributes.amount.valueInBaseUnits
+		}
+	})
+
+	return grouped
+}
+
+export async function getCategoryTransactions(url, token, categoryArray) {
+	let output = []
+
+	for (const category of categoryArray) {
+		let nextPage
+		if (!nextPage) {
+			const urlAppender = `&filter[category]=${category}`
+			let data = await pingUp(url + urlAppender, token)
+			output.push(...data.data)
+		} else if (nextPage) {
+			console.log("second lap")
+			let data = await pingUp(nextPage, token)
+			output.push(...data.data)
+		}
+	}
+
+	return output
+}
+
+export async function getCategories(url, token) {
+	let data = await pingUp(url, token)
+
+	let categories = []
+
+	await data.data.forEach((item) => {
+		let category = {
+			id: item.id,
+			name: item.attributes.name
+		}
+		categories.push(category)
+	})
+	return categories
+}

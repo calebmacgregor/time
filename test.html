@@ -23,12 +23,14 @@
 	<body>
 		<!-- Nav stuff -->
 		<nav-panel></nav-panel>
-		<template class="category-template">
-			<div class="category-container">
-				<h1 class="category-name">Good life</h1>
-				<p class="category-amount">$500</p>
-			</div>
-		</template>
+		<div class="category-list"></div>
+        <!-- Templates -->
+        <template class="category-template">
+            <div class="category-container">
+                <h3 class="category-name">Good life</h4>
+                <p class="category-value">$500</p>
+            </div>
+            </template>
 		<!-- Service worker -->
 		<script>
 			if ("serviceWorker" in navigator) {
