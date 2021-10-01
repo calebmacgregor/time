@@ -72,48 +72,40 @@ export async function keyValidation(url, token) {
   return response
 }
 
-export async function getAggregatedTransactions(
-  url,
-  token,
-  categoryArray,
-  daysBack
-) {
+export async function getTransactionsSince(url, token, daysBack) {
   const output = []
   let loader = document.querySelector(".loading")
   loader.classList.remove("inactive")
 
   //Loop through every category and grab the transactions
-  for (const category in categoryArray) {
-    let nextPage = url
+  let nextPage = url
 
-    //Create a new date object
-    const dateOfInterest = new Date()
+  //Create a new date object
+  const dateOfInterest = new Date()
 
-    //Offset that date by the daysBack parameter
-    dateOfInterest.setDate(dateOfInterest.getDate() - daysBack)
+  //Offset that date by the daysBack parameter
+  dateOfInterest.setDate(dateOfInterest.getDate() - daysBack)
 
-    while (nextPage) {
-      console.log(`Grabbing transactions for ${categoryArray[category]}`)
-      //Build the parameters to construct the URL
-      const urlAppender = `&filter[category]=${
-        categoryArray[category]
-      }&filter[since]=${dateOfInterest.toISOString()}`
+  while (nextPage) {
+    //Build the parameters to construct the URL
+    const urlAppender = `&filter[since]=${dateOfInterest.toISOString()}`
 
-      //Ping up to grab every transaction
-      let data = await pingUp(nextPage + urlAppender, token)
+    //Ping up to grab every transaction
+    let data = await pingUp(nextPage + urlAppender, token)
 
-      //Add latest loop to the array
-      output.push(...data.data)
+    //Add latest loop to the array
+    output.push(...data.data)
 
-      //Set the next URL for the loop, or Null if there are no next pages
-      nextPage = data.links.next
-    }
+    //Set the next URL for the loop, or Null if there are no next pages
+    nextPage = data.links.next
   }
 
   const grouped = []
 
   output.forEach((item) => {
-    let currentCategory = item.relationships.category.data.id
+    let currentCategory = item.relationships.category.data
+      ? item.relationships.category.data.id
+      : "Uncategorised"
 
     if (!grouped.find((element) => element.category == currentCategory)) {
       let obj = {

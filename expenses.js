@@ -8,8 +8,8 @@ import {
 } from "./utilities.js"
 import {
   getCategories,
-  getAggregatedTransactions,
   keyValidation,
+  getTransactionsSince,
 } from "./apiCallFunctions.js"
 import { transactionsURL, categoriesURL, pingURL } from "./endpoints.js"
 import {
@@ -30,13 +30,18 @@ if (!preferences) {
 }
 
 const categories = await getCategories(categoriesURL, preferences.apiKey)
-const categoryIDs = categories.map((item) => item.id)
-const aggregatedTransactions = await getAggregatedTransactions(
+
+const aggregatedTransactions = await getTransactionsSince(
   transactionsURL,
   preferences.apiKey,
-  categoryIDs,
-  30
+  10
 )
+// const aggregatedTransactions = await getAggregatedTransactions(
+//   transactionsURL,
+//   preferences.apiKey,
+//   categoryIDs,
+//   30
+// )
 
 renderTotalExpenses(aggregatedTransactions, preferences)
 
