@@ -1,12 +1,5 @@
 import { keyValidation } from "./apiCallFunctions.js"
 import { pingURL } from "./endpoints.js"
-import {
-  handleNavPanel,
-  handleLogout,
-  handleRefresh,
-  styleNavLinks,
-  disableScroll,
-} from "./utilities.js"
 import { setPreferences } from "./utilities.js"
 
 const payInput = document.querySelector(".dollars-input")
@@ -33,19 +26,5 @@ expenseInput.value = preferences.expenses
 keyInput.value = preferences.apiKey
 survivalSavingsInput.checked = preferences.survivalSavingsMode
 
-styleNavLinks()
-
-//Open nav panel functionality
-document.addEventListener("click", handleNavPanel)
-
-//Logout functionality
-document.addEventListener("click", handleLogout)
-
-//Refresh functionality
-document.addEventListener("click", handleRefresh)
-
 //Set preferences on submit
 document.addEventListener("click", setPreferences)
-
-//Disable scroll when panels are open
-document.addEventListener("touchmove", disableScroll, { passive: false })
