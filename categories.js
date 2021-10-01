@@ -34,7 +34,7 @@ const categories = await getCategories(categoriesURL, preferences.apiKey)
 const aggregatedTransactions = await getTransactionsSince(
   transactionsURL,
   preferences.apiKey,
-  10
+  30
 )
 // const aggregatedTransactions = await getAggregatedTransactions(
 //   transactionsURL,

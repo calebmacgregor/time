@@ -190,7 +190,6 @@ export async function renderTotalBalance(getTotalBalanceData, preferences) {
   )
   const currencyIndicator = document.querySelector(".currency-indicator")
   const timeValueObject = timeValue(balanceAmount / 100, preferences.rateObject)
-  const positiveIndicator = elt.querySelector(".positive-indicator")
 
   let timeValueString
 
@@ -199,7 +198,7 @@ export async function renderTotalBalance(getTotalBalanceData, preferences) {
     currencyIndicator.innerText = "Total survival balance"
   } else {
     timeValueString = generateTimeValueString(timeValueObject, "standard")
-    currencyIndicator.innerText = "Total balance"
+    currencyIndicator.innerText = "Total earned balance"
   }
 
   totalTimeBalance.innerHTML = timeValueString
@@ -221,10 +220,7 @@ export async function renderAggregatedCategoryTransactions(
     )
 
     const currentCategoryID = aggregate.category
-    let mappedName =
-      aggregate.category == "Uncategorised"
-        ? { name: "Uncategorised" }
-        : categoryMap.find((item) => item.id == currentCategoryID)
+    let mappedName = categoryMap.find((item) => item.id == currentCategoryID)
 
     const timeValueString = generateTimeValueString(timeValueObject)
     const categoryList = document.querySelector(".category-list")
@@ -265,7 +261,7 @@ export async function renderTotalExpenses(aggregatedTransactions, preferences) {
     currencyIndicator.innerText = "Survival cost spent in the last 30 days"
   } else {
     timeValueString = generateTimeValueString(timeValueObject, "standard")
-    currencyIndicator.innerText = "Earnings cost spent in the last 30 days"
+    currencyIndicator.innerText = "Earned cost spent in the last 30 days"
   }
 
   totalTimeBalance.innerHTML = timeValueString

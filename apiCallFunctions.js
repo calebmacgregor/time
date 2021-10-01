@@ -103,9 +103,10 @@ export async function getTransactionsSince(url, token, daysBack) {
   const grouped = []
 
   output.forEach((item) => {
-    let currentCategory = item.relationships.category.data
-      ? item.relationships.category.data.id
-      : "Uncategorised"
+    if (item.attributes.amount.valueInBaseUnits > 0) console.log(item)
+    if (item.relationships.transferAccount.data) return
+    if (!item.relationships.category.data) return
+    let currentCategory = item.relationships.category.data.id
 
     if (!grouped.find((element) => element.category == currentCategory)) {
       let obj = {
@@ -124,23 +125,6 @@ export async function getTransactionsSince(url, token, daysBack) {
 
   loader.classList.add("inactive")
   return grouped
-}
-
-export async function getCategoryTransactions(url, token, categoryArray) {
-  let output = []
-
-  for (const category of categoryArray) {
-    let nextPage
-    if (!nextPage) {
-      const urlAppender = `&filter[category]=${category}`
-      let data = await pingUp(url + urlAppender, token)
-      output.push(...data.data)
-    } else if (nextPage) {
-      let data = await pingUp(nextPage, token)
-      output.push(...data.data)
-    }
-  }
-  return output
 }
 
 export async function getCategories(url, token) {

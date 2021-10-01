@@ -78,7 +78,7 @@ export function styleNavLinks() {
   //Grab all nav links
   const transactionsLink = document.querySelector("#transactions-link")
   const accountsLink = document.querySelector("#accounts-link")
-  const expensesLink = document.querySelector("#expenses-link")
+  const categoriesLink = document.querySelector("#categories-link")
   const infoLink = document.querySelector("#info-link")
   const preferencesLink = document.querySelector("#preferences-link")
   const refreshLink = document.querySelector("#refresh-link")
@@ -87,7 +87,7 @@ export function styleNavLinks() {
   const linksArray = [
     transactionsLink,
     accountsLink,
-    expensesLink,
+    categoriesLink,
     infoLink,
     preferencesLink,
     refreshLink,

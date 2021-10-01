@@ -1,7 +1,7 @@
 class NavPanel extends HTMLElement {
-	constructor() {
-		super()
-		this.innerHTML = `    
+  constructor() {
+    super()
+    this.innerHTML = `    
     <div class="nav-icon">
     <svg
       width="13"
@@ -29,8 +29,8 @@ class NavPanel extends HTMLElement {
         >
       </div>
        <div class="nav-link-container">
-        <a href="expenses.html" class="nav-link" id="expenses-link"
-          >Expenses</a
+        <a href="categories.html" class="nav-link" id="categories-link"
+          >Categories</a
         >
       </div>
       <div class="nav-link-container">
@@ -50,7 +50,7 @@ class NavPanel extends HTMLElement {
     </div>
     <button class="logout">Logout</button>
   </div>`
-	}
+  }
 }
 
 window.customElements.define("nav-panel", NavPanel)
