@@ -115,6 +115,10 @@ export function styleNavLinks() {
 	const arrayLength = currentLocationArray.length
 	const currentLocation = currentLocationArray[arrayLength - 1]
 
+	if (currentLocation == "") {
+		transactionsLink.classList.add(".active")
+	}
+
 	//Grab the current page and style that
 	linksArray.forEach((link) => {
 		if (link.getAttribute("href") == currentLocation) {
