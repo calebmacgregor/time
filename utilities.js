@@ -203,6 +203,12 @@ export function setPreferences(e) {
 	})
 }
 
+export function selectInputOnClick(e) {
+	const inputElement = e.target.closest(".selectable-input")
+	if (!inputElement) return
+	inputElement.select()
+}
+
 export async function getTotalExpenses(aggregatedTransactions) {
 	let totalExpenses = await aggregatedTransactions.reduce((total, current) => {
 		return total + current.value
