@@ -1,11 +1,12 @@
 import { keyValidation } from "./apiCallFunctions.js"
 import {
-  handleNavPanel,
-  handleLogout,
-  handleRefresh,
-  toggleCurrency,
-  disableScroll,
-  styleNavLinks,
+	handleNavPanel,
+	handleLogout,
+	handleRefresh,
+	toggleCurrency,
+	disableScroll,
+	styleNavLinks,
+	handleNaveClose
 } from "./utilities.js"
 import { pingURL } from "./endpoints.js"
 
@@ -13,18 +14,21 @@ const preferences = JSON.parse(localStorage.getItem("TIME-preferences"))
 
 ///// Redirect to onboarding if key is bad /////
 if (!preferences) {
-  window.location.replace("./onboarding.html")
+	window.location.replace("./onboarding.html")
 } else if (preferences) {
-  let result = await keyValidation(pingURL, preferences.apiKey)
-  if (result.ok == false) {
-    window.location.replace("./onboarding.html")
-  }
+	let result = await keyValidation(pingURL, preferences.apiKey)
+	if (result.ok == false) {
+		window.location.replace("./onboarding.html")
+	}
 }
 
 styleNavLinks()
 
 //Open nav panel functionality
 document.addEventListener("click", handleNavPanel)
+
+//Close the nav panel if a non-nav item has been clicked
+document.addEventListener("click", handleNaveClose)
 
 //Logout functionality
 document.addEventListener("click", handleLogout)
